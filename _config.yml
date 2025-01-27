@@ -1,0 +1,7 @@
+# Book settings
+title: CSC 310 Portfolio
+author: Logan McCue
+logo: logo.png
+
+
+exclude_patterns            : ['data/*',  README.md, template_files/*]  #

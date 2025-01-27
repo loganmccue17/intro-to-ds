@@ -1,0 +1,80 @@
+name: Convert Notebooks to MyST and Create PR
+
+on:
+  push:
+    branches:
+      - 'assignment*'
+
+jobs:
+  convert-notebooks:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install jupytext
+
+    - name: Configure Git
+      run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+
+    - name: Handle branches and convert notebooks
+      run: |
+        # Get the current branch name (source branch)
+        source_branch="${GITHUB_REF#refs/heads/}"
+        target_branch="${source_branch}md"
+
+        # Ensure we're on the source branch
+        git checkout $source_branch
+
+        # Fetch all remote branches
+        git fetch --all
+
+        # Check if the target branch exists
+        if git ls-remote --exit-code --heads origin $target_branch; then
+          echo "Branch $target_branch exists. Rebasing it on $source_branch."
+          git checkout $target_branch
+          git rebase $source_branch
+        else
+          echo "Creating new branch $target_branch based on $source_branch"
+          git checkout -b $target_branch
+        fi
+
+        # Convert notebooks to MyST
+        jupytext --to myst *.ipynb
+
+        # Commit the changes
+        git add *.md
+        git commit -m "Convert notebooks to MyST Markdown" || echo "No changes to commit"
+
+        # Push the changes
+        git push -f origin $target_branch
+
+    - name: Create Pull Request if not exists
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        source_branch="${GITHUB_REF#refs/heads/}"
+        target_branch="${source_branch}md"
+        
+        # Check if a PR already exists
+        pr_exists=$(gh pr list --head $target_branch --base main --json number --jq length)
+        
+        if [ "$pr_exists" -eq "0" ]; then
+          echo "No existing PR found. Creating a new one."
+          gh pr create --base main --head $target_branch \
+            --title "Feedback for  $source_branch" \
+            --body "This PR contains the MyST Markdown conversion of notebooks from the $source_branch branch."
+        else
+          echo "A PR from $target_branch to feedback already exists. Skipping PR creation."
+        fi

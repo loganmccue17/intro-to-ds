@@ -1,0 +1,46 @@
+name: Convert for grading (Grader will run)
+on:
+  workflow_dispatch
+
+jobs:
+  generatereport:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    # Install dependencies
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    # install dependencies
+    - name: dependencies
+      run: pip install -r requirements.txt
+
+    # generate the report
+    - name: Convert notebooks to md for reading
+      run: |
+        jupytext --to myst *.ipynb
+        jupytext --to myst */*.ipynb
+
+    # compile the pdf
+    - name: Build a basic html to pdf
+      run: |
+        jupyter-book build . --builder pdfhtml
+
+    # rename the pdf
+    - name: Move the pdf
+      run: |
+        mv _build/pdf/book.pdf portfolio.pdf
+
+
+    # start a pull request for it
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v7
+      with:
+        commit-message: 'convert to md'
+        draft: false
+        branch: a2feedback
+        base: feedback
+        title: Feedback A2

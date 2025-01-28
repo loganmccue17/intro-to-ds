@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Classification of Fake News &#8212; Intro to Data Science Portfolio</title>
+    <title>Text Vectorization &#8212; Intro to Data Science Portfolio</title>
   
   
   
@@ -168,7 +168,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="Assignment7.html">Basic Classification</a></li>
 <li class="toctree-l1"><a class="reference internal" href="assignment8.html">Basic Clustering</a></li>
 <li class="toctree-l1"><a class="reference internal" href="assignment9.html">Basic Linear Regression</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Classification of Fake News</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Text Vectorization</a></li>
 </ul>
 
     </div>
@@ -307,7 +307,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Classification of Fake News</h1>
+    <h1>Text Vectorization</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -317,14 +317,17 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#titles-vector-representation-score">Titles Vector Representation Score</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#texts-vector-representation-score">Texts Vector Representation Score</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#titles-tf-idf-representation-score">Titles TF-IDF Representation Score</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#texts-tf-idf-representation-score">Texts TF-IDF Representation Score</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#titles-vector-cross-validation-score">Titles Vector Cross-Validation Score</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#texts-vector-cross-validation-score">Texts Vector Cross-Validation Score</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#titles-tf-idf-cross-validation-score">Titles TF-IDF Cross-Validation Score</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#texts-tf-idf-cross-validation-score">Texts TF-IDF Cross-Validation Score</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-of-fake-news">Classification of Fake News</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titles-vector-representation-score">Titles Vector Representation Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#texts-vector-representation-score">Texts Vector Representation Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titles-tf-idf-representation-score">Titles TF-IDF Representation Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#texts-tf-idf-representation-score">Texts TF-IDF Representation Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titles-vector-cross-validation-score">Titles Vector Cross-Validation Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#texts-vector-cross-validation-score">Texts Vector Cross-Validation Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titles-tf-idf-cross-validation-score">Titles TF-IDF Cross-Validation Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#texts-tf-idf-cross-validation-score">Texts TF-IDF Cross-Validation Score</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-optimization">Model Optimization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-visualization">Data Visualization</a></li>
 </ul>
@@ -338,8 +341,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="classification-of-fake-news">
-<h1>Classification of Fake News<a class="headerlink" href="#classification-of-fake-news" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="text-vectorization">
+<h1>Text Vectorization<a class="headerlink" href="#text-vectorization" title="Permalink to this heading">#</a></h1>
+<p>An classification of fake and real news articles using techniques of text vectorization. This serves as an introduction to machine learning based on text.</p>
+<section id="classification-of-fake-news">
+<h2>Classification of Fake News<a class="headerlink" href="#classification-of-fake-news" title="Permalink to this heading">#</a></h2>
 <p>First we import all of our metrics and functions that we will need for this analysis. This includes our standard libraries, our euclidean vector analysis tool, and our classification methods.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_extraction</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics.pairwise</span><span class="w"> </span><span class="kn">import</span> <span class="n">euclidean_distances</span>
@@ -488,7 +494,7 @@ document.write(`
 </div>
 <p>This next step fits out classifier model with the titles vector training data, and subsequently scores the model. As usual, the fitting is done with X and y training data, while the scoring is done with X and y testing data.</p>
 <section id="titles-vector-representation-score">
-<h2>Titles Vector Representation Score<a class="headerlink" href="#titles-vector-representation-score" title="Permalink to this heading">#</a></h2>
+<h3>Titles Vector Representation Score<a class="headerlink" href="#titles-vector-representation-score" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">clf_vec_titles</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">titles_vec_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">titles_vec_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -497,7 +503,7 @@ document.write(`
 </div>
 </section>
 <section id="texts-vector-representation-score">
-<h2>Texts Vector Representation Score<a class="headerlink" href="#texts-vector-representation-score" title="Permalink to this heading">#</a></h2>
+<h3>Texts Vector Representation Score<a class="headerlink" href="#texts-vector-representation-score" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">clf_vec_texts</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">texts_vec_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">texts_vec_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -506,7 +512,7 @@ document.write(`
 </div>
 </section>
 <section id="titles-tf-idf-representation-score">
-<h2>Titles TF-IDF Representation Score<a class="headerlink" href="#titles-tf-idf-representation-score" title="Permalink to this heading">#</a></h2>
+<h3>Titles TF-IDF Representation Score<a class="headerlink" href="#titles-tf-idf-representation-score" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">clf_tfidf_titles</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">titles_tfidf_train</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">titles_tfidf_test</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">y_test</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -515,7 +521,7 @@ document.write(`
 </div>
 </section>
 <section id="texts-tf-idf-representation-score">
-<h2>Texts TF-IDF Representation Score<a class="headerlink" href="#texts-tf-idf-representation-score" title="Permalink to this heading">#</a></h2>
+<h3>Texts TF-IDF Representation Score<a class="headerlink" href="#texts-tf-idf-representation-score" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">clf_tfidf_texts</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">texts_tfidf_train</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">texts_tfidf_test</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">y_test</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -527,7 +533,7 @@ document.write(`
 <p>We have to use our vector and tfidf dataframes, BEFORE we split into training and testing data, so we pass in the complete titles_X_vec, et cetera. Because the dataset is quite large, we can use a larger amount of folds that give us an interesting representation.</p>
 </section>
 <section id="titles-vector-cross-validation-score">
-<h2>Titles Vector Cross-Validation Score<a class="headerlink" href="#titles-vector-cross-validation-score" title="Permalink to this heading">#</a></h2>
+<h3>Titles Vector Cross-Validation Score<a class="headerlink" href="#titles-vector-cross-validation-score" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf_vec_titles</span><span class="p">,</span> <span class="n">titles_X_vec</span><span class="p">,</span> <span class="n">news_y</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">10</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -536,7 +542,7 @@ document.write(`
 </div>
 </section>
 <section id="texts-vector-cross-validation-score">
-<h2>Texts Vector Cross-Validation Score<a class="headerlink" href="#texts-vector-cross-validation-score" title="Permalink to this heading">#</a></h2>
+<h3>Texts Vector Cross-Validation Score<a class="headerlink" href="#texts-vector-cross-validation-score" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf_vec_texts</span><span class="p">,</span> <span class="n">texts_X_vec</span><span class="p">,</span> <span class="n">news_y</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">10</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -545,7 +551,7 @@ document.write(`
 </div>
 </section>
 <section id="titles-tf-idf-cross-validation-score">
-<h2>Titles TF-IDF Cross-Validation Score<a class="headerlink" href="#titles-tf-idf-cross-validation-score" title="Permalink to this heading">#</a></h2>
+<h3>Titles TF-IDF Cross-Validation Score<a class="headerlink" href="#titles-tf-idf-cross-validation-score" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf_tfidf_titles</span><span class="p">,</span> <span class="n">titles_X_tfidf</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">news_y</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">10</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -554,7 +560,7 @@ document.write(`
 </div>
 </section>
 <section id="texts-tf-idf-cross-validation-score">
-<h2>Texts TF-IDF Cross-Validation Score<a class="headerlink" href="#texts-tf-idf-cross-validation-score" title="Permalink to this heading">#</a></h2>
+<h3>Texts TF-IDF Cross-Validation Score<a class="headerlink" href="#texts-tf-idf-cross-validation-score" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf_tfidf_texts</span><span class="p">,</span> <span class="n">texts_X_tfidf</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">news_y</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">10</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -564,6 +570,7 @@ document.write(`
 <p>These results are very similar to our results for one specific training and testing set, but now we have proved that it remains consistent for an average across different splits. We can say with much better certainty that while all scenarios are fairly good at model this prediction, the prediction is more effective using article texts with a vector representation.</p>
 <p>Based on our above analysis, we have determined that texts are more predictive of the legitimacy of an article, however only for a certain representation. We have tested the titles and the texts of an article separately with two different representations, a count-vector matrix and a term frequency-inverse document frequency (tfidf) vector matrix. Among these four scenarios total, we have found that the highest predictive score (after a 10-fold cross validation) was the article texts as a count-vector matrix. This had an accuracy score of about 0.88 on average. Given that this analysis was done over a 10-fold cross validation, I would suggest that there is enough evidence to support this claim, as this was a much higher score that is repeatable over a computer average. While the text count-vectorization representation is the most predictive, we see that under a tf-idf comparison, it is much lower. On a 10-fold average, we see that the tf-idf performs at about 80% success for text, significantly lower that the count-vector’s 88%. Surprisingly at first look, the title performed at about 82% in the vector representation, but much lower at about 69% under the TF-IDF representation and the Gaussian Naive Bayes Model. I would expect that this is because of the lack of a vocabulary in titles, meaning simply less words to aid in prediction. This would also explain the lesser score for the count-vector representation.</p>
 <p>We can look at both the title the text analysis to find which representation is better. This ends up being the count-vector, with the optimal score of 0.88 for the vector when compared to 0.80 for the tf-idf representation. For the title analysis, this is even greater, where we see a roughly 0.82 score for the vector over 0.69 for the tf-idf. And with that comparison, we can further say that not only is the text of an article more predictive of an article’s legitimacy, but the count vector representation is better for model training than the tf-idf. This could also further conclude, that not only is the count vector representation better than the tf-idf representation, but the Multinomial Naive Bayes model may be more effective than the Gaussian Naive Bayes model for this analysis. While Gaussian Naive Bayes is used to better utilize the TF-IDF representation, it is still not as effective as the use of the Multinomial Naive Bayes model for the count-vector representation.</p>
+</section>
 </section>
 <section id="model-optimization">
 <h2>Model Optimization<a class="headerlink" href="#model-optimization" title="Permalink to this heading">#</a></h2>
@@ -1261,14 +1268,17 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#titles-vector-representation-score">Titles Vector Representation Score</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#texts-vector-representation-score">Texts Vector Representation Score</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#titles-tf-idf-representation-score">Titles TF-IDF Representation Score</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#texts-tf-idf-representation-score">Texts TF-IDF Representation Score</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#titles-vector-cross-validation-score">Titles Vector Cross-Validation Score</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#texts-vector-cross-validation-score">Texts Vector Cross-Validation Score</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#titles-tf-idf-cross-validation-score">Titles TF-IDF Cross-Validation Score</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#texts-tf-idf-cross-validation-score">Texts TF-IDF Cross-Validation Score</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-of-fake-news">Classification of Fake News</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titles-vector-representation-score">Titles Vector Representation Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#texts-vector-representation-score">Texts Vector Representation Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titles-tf-idf-representation-score">Titles TF-IDF Representation Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#texts-tf-idf-representation-score">Texts TF-IDF Representation Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titles-vector-cross-validation-score">Titles Vector Cross-Validation Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#texts-vector-cross-validation-score">Texts Vector Cross-Validation Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titles-tf-idf-cross-validation-score">Titles TF-IDF Cross-Validation Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#texts-tf-idf-cross-validation-score">Texts TF-IDF Cross-Validation Score</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-optimization">Model Optimization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-visualization">Data Visualization</a></li>
 </ul>

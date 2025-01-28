@@ -1,4 +1,8 @@
-# Classification of Fake News
+# Text Vectorization
+
+An classification of fake and real news articles using techniques of text vectorization. This serves as an introduction to machine learning based on text.
+
+## Classification of Fake News
 
 First we import all of our metrics and functions that we will need for this analysis. This includes our standard libraries, our euclidean vector analysis tool, and our classification methods.
 

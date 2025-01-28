@@ -11,6 +11,9 @@ kernelspec:
   name: python3
 ---
 
+# Accuracy, Precision, and Recall
+An analysis of basic confusion matrix metrics using open data on adult income.
+
 ```{code-cell} ipython3
 import pandas as pd
 from sklearn import metrics

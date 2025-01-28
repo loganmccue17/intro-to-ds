@@ -11,6 +11,10 @@ kernelspec:
   name: python3
 ---
 
+# Basic Classification
+
+An introductory classification analysis using data regarding the activity of breast cancer cells (malignant/benign)
+
 ```{code-cell} ipython3
 import pandas as pd
 import seaborn as sns

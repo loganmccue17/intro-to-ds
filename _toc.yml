@@ -1,7 +1,7 @@
 format: jb-book
 root: README
 parts:
-- captions: Assignments
+- caption: Assignments
   chapters:
     - file: a5_us_presidential_elections
     - file: a6_adults

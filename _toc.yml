@@ -1,5 +1,5 @@
 format: jb-book
-root: README
+root: assignment12
 chapters:
   - file: a5_us_presidential_elections
   - file: a6_adults
@@ -9,5 +9,4 @@ chapters:
   - file: a10_splits
   - file: a10_decision_tree
   - file: a10_comparison
-  - file: assignment12
 # - file: submission_1_intro

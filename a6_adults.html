@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Accuracy for GPR income&gt;=20k &#8212; Intro to Data Science Portfolio</title>
+    <title>Accuracy, Precision, and Recall &#8212; Intro to Data Science Portfolio</title>
   
   
   
@@ -165,14 +165,7 @@ const thebe_selector_output = ".output, .cell_output"
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="a5_us_presidential_elections.html">Web-Scraping Presidential Information</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Accuracy for GPR income&gt;=20k</a></li>
-
-
-
-
-
-
-
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Accuracy, Precision, and Recall</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Assignment7.html">7.2 – Dataset and EDA</a></li>
 
 
@@ -329,7 +322,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Accuracy for GPR income>=20k</h1>
+    <h1>Accuracy, Precision, and Recall</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -339,16 +332,15 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Accuracy for GPR income&gt;=20k</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#recall-for-gpr-income-20k">Recall for GPR income&gt;=20k</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-for-gpr-income-20k">Precision for GPR income&gt;=20k</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-for-rpr-income-60k">Accuracy for RPR income&gt;= 60k</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#recall-for-rpr-income-60k">Recall for RPR income&gt;=60k</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-for-rpr-income-60k">Precision for RPR income&gt;=60k</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-recall-and-precision">Accuracy, Recall, and Precision</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#which-to-deploy">Which To Deploy?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-for-gpr-income-20k">Accuracy for GPR income&gt;=20k</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recall-for-gpr-income-20k">Recall for GPR income&gt;=20k</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-for-gpr-income-20k">Precision for GPR income&gt;=20k</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-for-rpr-income-60k">Accuracy for RPR income&gt;= 60k</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recall-for-rpr-income-60k">Recall for RPR income&gt;=60k</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-for-rpr-income-60k">Precision for RPR income&gt;=60k</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-recall-and-precision">Accuracy, Recall, and Precision</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#which-to-deploy">Which To Deploy?</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -359,7 +351,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="cell docutils container">
+  <section class="tex2jax_ignore mathjax_ignore" id="accuracy-precision-and-recall">
+<h1>Accuracy, Precision, and Recall<a class="headerlink" href="#accuracy-precision-and-recall" title="Permalink to this heading">#</a></h1>
+<p>An analysis of basic confusion matrix metrics using open data on adult income.</p>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">metrics</span>
@@ -428,7 +423,7 @@ document.write(`
 </div>
 </div>
 <section id="accuracy-for-gpr-income-20k">
-<h1>Accuracy for GPR income&gt;=20k<a class="headerlink" href="#accuracy-for-gpr-income-20k" title="Permalink to this heading">#</a></h1>
+<h2>Accuracy for GPR income&gt;=20k<a class="headerlink" href="#accuracy-for-gpr-income-20k" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">acc_GPR_20k_fx</span>  <span class="o">=</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;income&gt;=20k&#39;</span><span class="p">],</span><span class="n">d</span><span class="p">[</span><span class="n">models_to_audit</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
@@ -439,7 +434,7 @@ document.write(`
 </div>
 </section>
 <section id="recall-for-gpr-income-20k">
-<h1>Recall for GPR income&gt;=20k<a class="headerlink" href="#recall-for-gpr-income-20k" title="Permalink to this heading">#</a></h1>
+<h2>Recall for GPR income&gt;=20k<a class="headerlink" href="#recall-for-gpr-income-20k" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">recall_GPR_20k_fx</span>  <span class="o">=</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">metrics</span><span class="o">.</span><span class="n">recall_score</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;income&gt;=20k&#39;</span><span class="p">],</span><span class="n">d</span><span class="p">[</span><span class="n">models_to_audit</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
@@ -450,7 +445,7 @@ document.write(`
 </div>
 </section>
 <section id="precision-for-gpr-income-20k">
-<h1>Precision for GPR income&gt;=20k<a class="headerlink" href="#precision-for-gpr-income-20k" title="Permalink to this heading">#</a></h1>
+<h2>Precision for GPR income&gt;=20k<a class="headerlink" href="#precision-for-gpr-income-20k" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prec_GPR_20k_fx</span>  <span class="o">=</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">metrics</span><span class="o">.</span><span class="n">precision_score</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;income&gt;=20k&#39;</span><span class="p">],</span><span class="n">d</span><span class="p">[</span><span class="n">models_to_audit</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
@@ -461,7 +456,7 @@ document.write(`
 </div>
 </section>
 <section id="accuracy-for-rpr-income-60k">
-<h1>Accuracy for RPR income&gt;= 60k<a class="headerlink" href="#accuracy-for-rpr-income-60k" title="Permalink to this heading">#</a></h1>
+<h2>Accuracy for RPR income&gt;= 60k<a class="headerlink" href="#accuracy-for-rpr-income-60k" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">acc_RPR_60k_fx</span>  <span class="o">=</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;income&gt;=60k&#39;</span><span class="p">],</span><span class="n">d</span><span class="p">[</span><span class="n">models_to_audit</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
@@ -472,7 +467,7 @@ document.write(`
 </div>
 </section>
 <section id="recall-for-rpr-income-60k">
-<h1>Recall for RPR income&gt;=60k<a class="headerlink" href="#recall-for-rpr-income-60k" title="Permalink to this heading">#</a></h1>
+<h2>Recall for RPR income&gt;=60k<a class="headerlink" href="#recall-for-rpr-income-60k" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">recall_RPR_60k_fx</span>  <span class="o">=</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">metrics</span><span class="o">.</span><span class="n">recall_score</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;income&gt;=60k&#39;</span><span class="p">],</span><span class="n">d</span><span class="p">[</span><span class="n">models_to_audit</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
@@ -483,7 +478,7 @@ document.write(`
 </div>
 </section>
 <section id="precision-for-rpr-income-60k">
-<h1>Precision for RPR income&gt;=60k<a class="headerlink" href="#precision-for-rpr-income-60k" title="Permalink to this heading">#</a></h1>
+<h2>Precision for RPR income&gt;=60k<a class="headerlink" href="#precision-for-rpr-income-60k" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prec_RPR_60k_fx</span>  <span class="o">=</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">metrics</span><span class="o">.</span><span class="n">precision_score</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;income&gt;=60k&#39;</span><span class="p">],</span><span class="n">d</span><span class="p">[</span><span class="n">models_to_audit</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
@@ -504,14 +499,15 @@ Recall: The ratio of correctly predicted positive instances to the actual total 
 Precision: The ratio of correctly predicted positive instances to the total predicted positive instances.</p>
 </section>
 <section id="accuracy-recall-and-precision">
-<h1>Accuracy, Recall, and Precision<a class="headerlink" href="#accuracy-recall-and-precision" title="Permalink to this heading">#</a></h1>
+<h2>Accuracy, Recall, and Precision<a class="headerlink" href="#accuracy-recall-and-precision" title="Permalink to this heading">#</a></h2>
 <p>Looking at these tables we can see the GPR model predicted males more accurately in terms of their income. This was a resultant accuracy of roughly 79% compared to 70% for females. This may demonstrate a slight bias towards male prediction, if outside of error bars. This is also for a lower income threshold, meaning at these low incomes, men were predicted more on average than women. This is different when compared to the RPR machine learning model at a threshold of 60k or above. In this scenario, females were accurately predicted by almost 95%, when compared to only 82% for males. This is significant, and demonstrates that at higher incomes, the model likely had a negative bias towards men. However, under both instances, men and female were predicted more accurately under the RPR model. This likely supports in the use of the RPR model despite a potential gender bias, however it would be best to compare the machine learning models at the same income threshold to determine if the biasy is more related to the model or the threshold.</p>
 <p>When looking at recall, we see more significant results. The recall using the GPR model demonstrates that only about 58% of females that WERE in this income threshold were predicted correctly. This is compared to males at almost 90%. These drastic results characterize a notable biasy in the GPR machine learning model. At a lower income threshold, the model is more apt to predict correctly a male that works at this level. This seems to be a biasy against female prediction, meaning that the model may women with a lower income, when that may not be the case. However, to see this biasy more clearly, we would have to look at a higher income level also. This would show if it is a model biasy or an income biasy (or both). The RPR model, however, does not seem to have a significant biasy between males and females for a higher 60k+ income level. However, the model also performs quite poorly at correctly identifying people in general who do indeed work for a high income. So despite the lack of a gender biasy (or an insignificant one) at this threshold for RPR, the model was still not strong at this income level.</p>
 <p>Precision similarly measured a ratio of predicted positive instances. However while recall looks at how many positive instances were correctly predicted positive, precision looks at how many predicted positive instances were correct. What we can see through our analysis is that for the GPR machine learning model at a threshold of &gt;=20k, about two-thirds of the model’s positive predictions were actually positive for females. This number jumps to around 81% for males. This means that the model predicted excess females as being within the lower income threshold then men, meaning the model may have a biasy towards women working lower income jobs. This is compared with the RPR model which predicts about 75% for females and 70% for males. This data characterizes a slight biasy towards females working higher income jobs, seemingly the opposite. Despite the potential biasy, it is hard to characterize this to its fullest extent without comparing equivalent income ranges between the models.</p>
 </section>
 <section id="which-to-deploy">
-<h1>Which To Deploy?<a class="headerlink" href="#which-to-deploy" title="Permalink to this heading">#</a></h1>
+<h2>Which To Deploy?<a class="headerlink" href="#which-to-deploy" title="Permalink to this heading">#</a></h2>
 <p>Looking between these two models, I would say that the RPR model is the best to implement. The model demonstrates good accuracy and precision without significant gender bias. While the bias may still be present, it is difficult to know without examining other income levels, against more examples of a counter model, or without knowing specific standard deviations. While the RPR model had poor recall for both men and women, this may be an effect of working with high incomes levels in general (and not a specific problem with the model itself). The GPR however demonstrates significant gender bias against women, consistently predicting that they work for a lower income incorrectly.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -577,16 +573,15 @@ Precision: The ratio of correctly predicted positive instances to the total pred
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Accuracy for GPR income&gt;=20k</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#recall-for-gpr-income-20k">Recall for GPR income&gt;=20k</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-for-gpr-income-20k">Precision for GPR income&gt;=20k</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-for-rpr-income-60k">Accuracy for RPR income&gt;= 60k</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#recall-for-rpr-income-60k">Recall for RPR income&gt;=60k</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-for-rpr-income-60k">Precision for RPR income&gt;=60k</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-recall-and-precision">Accuracy, Recall, and Precision</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#which-to-deploy">Which To Deploy?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-for-gpr-income-20k">Accuracy for GPR income&gt;=20k</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recall-for-gpr-income-20k">Recall for GPR income&gt;=20k</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-for-gpr-income-20k">Precision for GPR income&gt;=20k</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-for-rpr-income-60k">Accuracy for RPR income&gt;= 60k</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recall-for-rpr-income-60k">Recall for RPR income&gt;=60k</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-for-rpr-income-60k">Precision for RPR income&gt;=60k</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-recall-and-precision">Accuracy, Recall, and Precision</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#which-to-deploy">Which To Deploy?</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>

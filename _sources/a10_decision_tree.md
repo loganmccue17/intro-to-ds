@@ -1,3 +1,7 @@
+# Decision Tree Classification
+<br>
+Classification of red wine quality based on a decision tree model.
+
 Here we import all of our necessary imports, including our chosen classification model, the DecisionTreeClassifier
 
 

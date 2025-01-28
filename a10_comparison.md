@@ -1,3 +1,7 @@
+# Decision Tree vs. GNB
+
+A comparison of the Decision Tree Classifier and Gaussian Naive Bayes models in classifying red wine quality.
+
 ```python
 import pandas as pd
 import seaborn as sns

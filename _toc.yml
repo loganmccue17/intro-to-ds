@@ -1,6 +1,13 @@
 format: jb-book
-root: intro
+root: README
 chapters:
-  - file: about
-  - file: success
+  - file: a5_us_presidential_elections
+  - file: a6_adults
+  - file: Assignment7
+  - file: assignment8
+  - file: assignment9
+  - file: a10_splits
+  - file: a10_decision_tree
+  - file: a10_comparison
+  - file: assignment12
 # - file: submission_1_intro

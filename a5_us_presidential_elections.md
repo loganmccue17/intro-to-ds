@@ -10,8 +10,12 @@ kernelspec:
   language: python
   name: python3
 ---
+## Web-Scraping Presidential Information
 
-## Are Presidential Popular Vote Wins Characterized by Political Party or Religion?
+An demonstration of web-scraping and condensing gathered information into a data table. Further analysis is done exploring demographic information on each president. <br>
+**Note: Conclusions Need to Be Revised Accounting for the Majority of Popular Vote Without a Simple >=50% Conditional**
+
+# Are Presidential Popular Vote Wins Characterized by Political Party or Religion?
 
 +++
 

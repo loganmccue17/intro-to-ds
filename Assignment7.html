@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>7.2 – Dataset and EDA &#8212; Intro to Data Science Portfolio</title>
+    <title>Basic Classification &#8212; Intro to Data Science Portfolio</title>
   
   
   
@@ -166,9 +166,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="a5_us_presidential_elections.html">Web-Scraping Presidential Information</a></li>
 <li class="toctree-l1"><a class="reference internal" href="a6_adults.html">Accuracy, Precision, and Recall</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">7.2 – Dataset and EDA</a></li>
-
-
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Basic Classification</a></li>
 <li class="toctree-l1"><a class="reference internal" href="assignment8.html">Evaluating Our Clusters</a></li>
 
 
@@ -322,7 +320,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>7.2 – Dataset and EDA</h1>
+    <h1>Basic Classification</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -332,11 +330,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">7.2 – Dataset and EDA</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-classification">7.3 - Basic Classification</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-problem-setups">7.4 - Exploring Problem Setups</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-and-eda">7.2 – Dataset and EDA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">7.3 - Basic Classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-problem-setups">7.4 - Exploring Problem Setups</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -347,7 +344,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="cell docutils container">
+  <section class="tex2jax_ignore mathjax_ignore" id="basic-classification">
+<h1>Basic Classification<a class="headerlink" href="#basic-classification" title="Permalink to this heading">#</a></h1>
+<p>An introductory classification analysis using data regarding the activity of breast cancer cells (malignant/benign)</p>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
@@ -398,7 +398,7 @@ document.write(`
 </div>
 </div>
 <section id="dataset-and-eda">
-<h1>7.2 – Dataset and EDA<a class="headerlink" href="#dataset-and-eda" title="Permalink to this heading">#</a></h1>
+<h2>7.2 – Dataset and EDA<a class="headerlink" href="#dataset-and-eda" title="Permalink to this heading">#</a></h2>
 <p>This dataset includes a specific ID number for each test case and a diagnosis given (malignant or benign). This diagnosis can be used to compare each model’s prediction using the Gaussian Naive Bayes method. Every column after that includes data based on features of the cancer tumor used for machine learning classification.</p>
 <p>The purpose of this classification would be to test the Gaussian Naive Bayes algorithm in its use to correctly diagnose the activity of each breast cancer tumor. Using various features of each test case, the algorithm should be able to find patterns separating the malignant and benign cancer tumors.</p>
 <div class="cell docutils container">
@@ -425,8 +425,8 @@ document.write(`
 <p>When doing some brief Exploratory Data Analysis looking at the Radius, Texture, and Perimeter columns, we see that the means and standard deviations for some columns are out of range. The Radius and Perimeter have standard deviations that are statistically different when comparing benign and malignant cancer tumors. However, other columns like Texture contain overlapping error bars. This likely means that some breast cancer tumors are more characteristic for a benign or malignant diagnosis than others. Due to the statistical separation of some variables, I would hypothesize that the classification algorithm will result in reasonably high accuracy, but may be lowered by the presence of less characteristic variables. Due to this, there are likely to be a significant amount of false positives or false negatives which would lower the amount of true diagnoses needed for 100% accuracy. The accuracy, I expect would still be within a passing range despite this nonetheless (perhaps an estimate of 70% or so).</p>
 <p>While I believe both the Gaussian Naive Bayes and Decision Tree models would be reasonably effective in our classification analysis, I would have reason to expect that the Gaussian Naive Bayes model would perform better. This is because the Gaussian Naive Bayes algorithm assumes that the data has a Gaussian distribution. While I am unsure that the data had this distribution, it is reasonable to assume that most large datasets with a plethora of continuous attributes would hold a Gaussian shape. While the Decision Tree would likely still be effective, it follows a flowchart-like pattern where it looks at each attribute one by one. Since some attributes seem to characterize breast cancer tumors with more statistical significance than others, it is reasonable to assume that Decision Tree may have trouble at these roadblocks. Since the Gaussian Naive Bayes algorithm is on the basis of a Gaussian distribution, which most large continuous datasets have, it is likely to be more effective for our purposes.</p>
 </section>
-<section id="basic-classification">
-<h1>7.3 - Basic Classification<a class="headerlink" href="#basic-classification" title="Permalink to this heading">#</a></h1>
+<section id="id1">
+<h2>7.3 - Basic Classification<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">feature_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Radius (mean)&#39;</span><span class="p">,</span> <span class="s1">&#39;Texture (mean)&#39;</span><span class="p">,</span> <span class="s1">&#39;Perimeter (mean)&#39;</span><span class="p">,</span> <span class="s1">&#39;Area (mean)&#39;</span><span class="p">,</span> <span class="s1">&#39;Smoothness (mean)&#39;</span><span class="p">,</span> <span class="s1">&#39;Compactness (mean)&#39;</span><span class="p">,</span> <span class="s1">&#39;Concavity (mean)&#39;</span><span class="p">,</span> <span class="s1">&#39;Concave points (mean)&#39;</span><span class="p">,</span> <span class="s1">&#39;Symmetry (mean)&#39;</span><span class="p">,</span> <span class="s1">&#39;Fractal dimension (mean)&#39;</span><span class="p">]</span>
@@ -561,7 +561,7 @@ document.write(`
 <p>While a more complex model may deal with the overlapping Gaussian features better than this one, I would still support the use of this model for breast cancer tumor classification. With good precision, recall, and accuracy statistics, there is little reason to suggest that this model would not be effective in deployment. However, as the medical field is very precise, it would not hurt to use a more complex model if available. This evaluation has demonstrated that machine learning models like the Gaussian Naive Bayes would be effective at performing tasks like these. While this task is able to be done without the use of a machine learning model, by ultrasound sonographers for instance, the success of this evaluation would eagerly encourage more research with similar models and test cases in order to allow the widespread use of machine learning breast cancer tumor classification.</p>
 </section>
 <section id="exploring-problem-setups">
-<h1>7.4 - Exploring Problem Setups<a class="headerlink" href="#exploring-problem-setups" title="Permalink to this heading">#</a></h1>
+<h2>7.4 - Exploring Problem Setups<a class="headerlink" href="#exploring-problem-setups" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">percentages</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">]</span>
@@ -611,6 +611,7 @@ document.write(`
 </div>
 </div>
 <p>This dataframe shows how the accuracy in the training and test data changes as the training percentage increases. The training percentage models how much of the original dataframe is used to train the machine learning model while the test percentage is the remainder. We can observe that as the training percentage increases, the accuracy of the training model to classify benign versus malignant breast cancer tumors stays relatively stagnant. There seems to be no impact on the number of training samples on the training accuracy. This could be because the training accuracy is independent from the model itself. As the trained model is used for classification of test cases, we would expect that the testing accuracy increases increased as the training percentage increases. This is because more training samples results in more data to base testing classification on. This prediction is demonstrated by a consistently increasing test accuracy from ~92 - ~96%. While this data seems to support our hypothesis, it is worth noting that this would be more thoroughly examined using different random seeds, to see if this trend is consistent for different training and testing arrangements of the same percentage.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -676,11 +677,10 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">7.2 – Dataset and EDA</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-classification">7.3 - Basic Classification</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-problem-setups">7.4 - Exploring Problem Setups</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-and-eda">7.2 – Dataset and EDA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">7.3 - Basic Classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-problem-setups">7.4 - Exploring Problem Setups</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>

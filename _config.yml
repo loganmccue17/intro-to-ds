@@ -1,7 +1,3 @@
 # Book settings
-title: CSC 310 Portfolio
+title: Intro to Data Science Portfolio
 author: Logan McCue
-logo: logo.png
-
-
-exclude_patterns            : ['data/*',  README.md, template_files/*]  #

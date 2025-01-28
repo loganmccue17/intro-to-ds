@@ -10,6 +10,10 @@ kernelspec:
   language: python
   name: python3
 ---
+# Basic Linear Regression
+
+A standard linear regression analysis estimating the prices of various automobiles based on their categorical characteristics.
+
 
 ```{code-cell} ipython3
 import numpy as np

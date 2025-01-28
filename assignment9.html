@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Dataset Imports and Cleaning &#8212; Intro to Data Science Portfolio</title>
+    <title>Basic Linear Regression &#8212; Intro to Data Science Portfolio</title>
   
   
   
@@ -168,17 +168,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="a6_adults.html">Accuracy, Precision, and Recall</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Assignment7.html">Basic Classification</a></li>
 <li class="toctree-l1"><a class="reference internal" href="assignment8.html">Basic Clustering</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Dataset Imports and Cleaning</a></li>
-
-
-
-
-
-
-
-
-
-
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Basic Linear Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="assignment12.html">Classification of Fake News</a></li>
 </ul>
 
@@ -318,7 +308,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Dataset Imports and Cleaning</h1>
+    <h1>Basic Linear Regression</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -328,23 +318,22 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Dataset Imports and Cleaning</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-dataset-descriptions">Initial Dataset Descriptions</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-and-testing-the-linear-regression-model">Fitting and Testing the Linear Regression Model</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-of-each-attribute">Visualization of Each Attribute</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#r2-score">R2 Score</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error">Mean Squared Error</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-coefficients-and-residuals">Analysis of Coefficients and Residuals</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#repeat-experiment-5-more-times">Repeat Experiment 5 More Times</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#final-interpretations-on-the-simple-linear-regression-model">Final Interpretations on the Simple Linear Regression Model</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-using-only-one-feature">Linear Regression Using Only One Feature</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-model-optimization">Regression Model Optimization</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lasso">LASSO</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree">Decision Tree</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-imports-and-cleaning">Dataset Imports and Cleaning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-dataset-descriptions">Initial Dataset Descriptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-and-testing-the-linear-regression-model">Fitting and Testing the Linear Regression Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-of-each-attribute">Visualization of Each Attribute</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#r2-score">R2 Score</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error">Mean Squared Error</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-coefficients-and-residuals">Analysis of Coefficients and Residuals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repeat-experiment-5-more-times">Repeat Experiment 5 More Times</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-interpretations-on-the-simple-linear-regression-model">Final Interpretations on the Simple Linear Regression Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-using-only-one-feature">Linear Regression Using Only One Feature</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-model-optimization">Regression Model Optimization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lasso">LASSO</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree">Decision Tree</a></li>
 </ul>
 </li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -355,7 +344,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="cell docutils container">
+  <section class="tex2jax_ignore mathjax_ignore" id="basic-linear-regression">
+<h1>Basic Linear Regression<a class="headerlink" href="#basic-linear-regression" title="Permalink to this heading">#</a></h1>
+<p>A standard linear regression analysis estimating the prices of various automobiles based on their categorical characteristics.</p>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
@@ -387,7 +379,7 @@ document.write(`
 </div>
 </div>
 <section id="dataset-imports-and-cleaning">
-<h1>Dataset Imports and Cleaning<a class="headerlink" href="#dataset-imports-and-cleaning" title="Permalink to this heading">#</a></h1>
+<h2>Dataset Imports and Cleaning<a class="headerlink" href="#dataset-imports-and-cleaning" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the Automobile Dataset from UCI Machine Learning Library</span>
@@ -428,7 +420,7 @@ document.write(`
 </div>
 </section>
 <section id="initial-dataset-descriptions">
-<h1>Initial Dataset Descriptions<a class="headerlink" href="#initial-dataset-descriptions" title="Permalink to this heading">#</a></h1>
+<h2>Initial Dataset Descriptions<a class="headerlink" href="#initial-dataset-descriptions" title="Permalink to this heading">#</a></h2>
 <p>The Automobile Dataset from the UC Irvine Machine Learning Repository contains numerical and categorical information on the features of a given automobile and the given price of each vehicle. This allows a linear regression model to be effectively performed, as it can be assumed that continuous attributes like ‘highway-mpg’ scale linearly to vehicle price. The target variable for this study would therefore be automobile price. The automobile attributes that will be used to linearly map price (in dollars) are all based on numerical values. This includes: <br></p>
 <ul class="simple">
 <li><p>symboling (-3 - 3) measuring a risk factor used for insurance <br></p></li>
@@ -450,7 +442,7 @@ document.write(`
 <p>The task of this regression analysis is to examine if automobile price can be effectively predicted based on the continuous features given above for each sample. This analysis assumes that automobile price can be represented as a linear relationship between these numerical attributes. Regression requires a dataset to have a relationship that can be modeled on an x-y plane, so that a mathematical correlation can be identified. By having continuous attributes and a continuous target variable, this analysis aims to find a “slope” and “intecept” to proportionally model this relationship. This dataset is suitable for a regression analysis as each numerical attribute and the target variable have continuous numerical scales, which are assumed to have some sort of relationship with each other.</p>
 </section>
 <section id="fitting-and-testing-the-linear-regression-model">
-<h1>Fitting and Testing the Linear Regression Model<a class="headerlink" href="#fitting-and-testing-the-linear-regression-model" title="Permalink to this heading">#</a></h1>
+<h2>Fitting and Testing the Linear Regression Model<a class="headerlink" href="#fitting-and-testing-the-linear-regression-model" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the X and y datasets</span>
@@ -505,7 +497,7 @@ document.write(`
 </div>
 </section>
 <section id="visualization-of-each-attribute">
-<h1>Visualization of Each Attribute<a class="headerlink" href="#visualization-of-each-attribute" title="Permalink to this heading">#</a></h1>
+<h2>Visualization of Each Attribute<a class="headerlink" href="#visualization-of-each-attribute" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Loop through each predictor and plot</span>
@@ -530,7 +522,7 @@ document.write(`
 <p>We can see that some attributes were very effective predictors of the price of each vehicle. Many of these trends demonstrate a linear relationship, that seems to be modeled well by the fitting algorithm. It is worth noting that while each graph models an individual numerical attribute against the vehicle price, the red predicted points have already taken into account ALL of these training variables. Here we just model the final predicted points (y_pred) against the initial X_test that was used for the fitting algorithm. That way the red points have the price target variable associated with each initial test feature.</p>
 </section>
 <section id="r2-score">
-<h1>R2 Score<a class="headerlink" href="#r2-score" title="Permalink to this heading">#</a></h1>
+<h2>R2 Score<a class="headerlink" href="#r2-score" title="Permalink to this heading">#</a></h2>
 <p>When using multiple attribute variables, it is often difficult to graphically visualize the prediction by regression without modeling each attribute separately. This is because while a pseudo-linear relationship was found, it is not linear with respect to each attribute, but instead a combination of ALL attributes. Due to this, it is easier to demonstrate how accurate our regression experiment was by using statistical metrics. The first of which we will use is the R2 metric, the standard in measuring linear regression.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -543,7 +535,7 @@ document.write(`
 <p>This is not a horrible r2 score. Given that we are using many features, this r2 score could tell us many things. First, the amount of attributes used to fit and predict the data could contribute to a more profound linear relationship as there is more robust data that could contribute to vehicle price. However, this comes with a potential fault where some attributes with little to no contribution affect the model’s prediction.</p>
 </section>
 <section id="mean-squared-error">
-<h1>Mean Squared Error<a class="headerlink" href="#mean-squared-error" title="Permalink to this heading">#</a></h1>
+<h2>Mean Squared Error<a class="headerlink" href="#mean-squared-error" title="Permalink to this heading">#</a></h2>
 <p>Before moving on, we will run another statistical metric, using the mean squared error to eventually find the mean absolute error. This can be compared to summary statistics of our price to see how significant this error is. It is worth nothing that this value involves an absolute value of each error, showing how much each deviated from 0 in either direction. When we look at individual residuals later, we see that there is error in both directions about equally.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -563,7 +555,7 @@ document.write(`
 <p>We can see that while the mean absolute error is relatively high (3079.32 dollars), this is actually significantly lower than the standard deviation of the test dataset. This means that while there is a very large spread in the price of automobiles in this dataset, the prediction algorithm was able to estimate the price within reason. While this is still a fairly large recorded error, it seems to support the r2 value of 0.709.</p>
 </section>
 <section id="analysis-of-coefficients-and-residuals">
-<h1>Analysis of Coefficients and Residuals<a class="headerlink" href="#analysis-of-coefficients-and-residuals" title="Permalink to this heading">#</a></h1>
+<h2>Analysis of Coefficients and Residuals<a class="headerlink" href="#analysis-of-coefficients-and-residuals" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">regr</span><span class="o">.</span><span class="vm">__dict__</span>
@@ -590,7 +582,7 @@ document.write(`
 </div>
 </section>
 <section id="repeat-experiment-5-more-times">
-<h1>Repeat Experiment 5 More Times<a class="headerlink" href="#repeat-experiment-5-more-times" title="Permalink to this heading">#</a></h1>
+<h2>Repeat Experiment 5 More Times<a class="headerlink" href="#repeat-experiment-5-more-times" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add previous r2 and mean_abs_error to a list</span>
@@ -636,11 +628,11 @@ document.write(`
 <p>While the model contains consistency in how well it is able to predict automobile prices on an aggregate level, demonstrated by relative consistency in the r2 values and the mean absolut errors, I would not trust the deployment of this model. This is because individual residuals (y_test - y_pred) demonstrate a wide range in the model’s predictions. On any individual automobile, the prediction for a price dependent on all contributing attributes seems too varied to effectively use. As mentioned before, the aggregate metrics for the entire model are fairly consistent meaning that there may be some linear relationship present, but I think this model would be better examined with either a different regression model or by looking at only a few defining attributes (like ‘bore’ and ‘stroke’ as mentioned).</p>
 </section>
 <section id="final-interpretations-on-the-simple-linear-regression-model">
-<h1>Final Interpretations on the Simple Linear Regression Model<a class="headerlink" href="#final-interpretations-on-the-simple-linear-regression-model" title="Permalink to this heading">#</a></h1>
+<h2>Final Interpretations on the Simple Linear Regression Model<a class="headerlink" href="#final-interpretations-on-the-simple-linear-regression-model" title="Permalink to this heading">#</a></h2>
 <p>Therefore, while the performance of the linear regression algorithm is consistent enough to be accurate on aggregate, the variance in individual residuals is too strong to recommend the use of this model. While this task is too complicated to be done without machine learning, we can help the machine learning algorithm to obtain better potential results. Based on the coefficients that are largest in magnitude (and therefore more characteristic of this regression model), we can try to do this analysis again with only a few attributes instead of all numerical data. We could also attempt to optimize this analysis with another regression model to see if a more complex model is better suited.</p>
 </section>
 <section id="linear-regression-using-only-one-feature">
-<h1>Linear Regression Using Only One Feature<a class="headerlink" href="#linear-regression-using-only-one-feature" title="Permalink to this heading">#</a></h1>
+<h2>Linear Regression Using Only One Feature<a class="headerlink" href="#linear-regression-using-only-one-feature" title="Permalink to this heading">#</a></h2>
 <p>In this next section, we will try fitting the model based on only one feature to see if our scores improve. If successful, we will be looking for r2 values closer to 1 (demonstrating near-linearity) and reduced mean absolute errors. Ideally, we would also see individual residuals that are more consistent, as it would mean that the model is good at overall automobile price prediction. In this analysis, we will use the attribute ‘bore’ as it has the highest coefficient magnitude. This means our original multi-variable analysis depended on the linearity of ‘bore’ the most. In terms of automobiles, ‘bore’ represents the diameter of an engine’s cylinder, which is where the piston travels through. This could affect engine performance, and possibly linearly correlate to automobile price.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -698,9 +690,9 @@ document.write(`
 <p>Based on the above analysis of the multivariable prediction model against true values, the attributes that I would be interested in combined for a further analysis would be <strong>Bore, Automobile Length, Automobile Width, City MPG, and Highway MPG</strong>, as these visually look like they have the most linear relationship between price and its numerical value.</p>
 </section>
 <section id="regression-model-optimization">
-<h1>Regression Model Optimization<a class="headerlink" href="#regression-model-optimization" title="Permalink to this heading">#</a></h1>
+<h2>Regression Model Optimization<a class="headerlink" href="#regression-model-optimization" title="Permalink to this heading">#</a></h2>
 <section id="lasso">
-<h2>LASSO<a class="headerlink" href="#lasso" title="Permalink to this heading">#</a></h2>
+<h3>LASSO<a class="headerlink" href="#lasso" title="Permalink to this heading">#</a></h3>
 <p>To optimize the model, we will use the LASSO method. As determined using the simple Linear Regression model, using all numerical features did not result in effective model predictions at the individual level (and not great at the aggregate level either). Our residuals were varied significantly and our statistic metrics were not optimized. In this section we will attempt to solve this problem by using a more complicated model. <strong>LASSO</strong> helps in determining which features are less linearly correlated to our target vartiable (price), and does not train based on them (or at least trains less based on these attributes). This analysis will allow us to see which attributes it deems most important while ideally giving us a more effective regression.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -724,7 +716,7 @@ document.write(`
 </div>
 </section>
 <section id="decision-tree">
-<h2>Decision Tree<a class="headerlink" href="#decision-tree" title="Permalink to this heading">#</a></h2>
+<h3>Decision Tree<a class="headerlink" href="#decision-tree" title="Permalink to this heading">#</a></h3>
 <p>Weirdly enough, it seems that with an alpha of 1, no coefficients are zero and they actually resemble the slopes given above from the linear regression model. Because of this, we are going to try a Decision Tree instead. This result from this LASSO model seems to suggest that these continuous variables are not linearly correlated to price (and none have a stronger correlation necessarily). Since all lasso coefficients model the linear regression, it is reasonable to assume that no attributes have a strong correlation to price.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -846,6 +838,7 @@ document.write(`
 <p>When the cv is increased to 10, we see drastically different results. While the mean_fit_time is still much lower than that of the default parameters, we now see a lower mean_test_score and completely different optimal parameters. This suggest that there is not a clear trend on which parameters are best optimized (not a linear scale with parameterization). This means that the model may have been better at these optimal parameters by chance under 5-fold, and that has little meaning in how effective the model is at predicting the automobile price.</p>
 </section>
 </section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -910,23 +903,22 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Dataset Imports and Cleaning</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-dataset-descriptions">Initial Dataset Descriptions</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-and-testing-the-linear-regression-model">Fitting and Testing the Linear Regression Model</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-of-each-attribute">Visualization of Each Attribute</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#r2-score">R2 Score</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error">Mean Squared Error</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-coefficients-and-residuals">Analysis of Coefficients and Residuals</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#repeat-experiment-5-more-times">Repeat Experiment 5 More Times</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#final-interpretations-on-the-simple-linear-regression-model">Final Interpretations on the Simple Linear Regression Model</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-using-only-one-feature">Linear Regression Using Only One Feature</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-model-optimization">Regression Model Optimization</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lasso">LASSO</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree">Decision Tree</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-imports-and-cleaning">Dataset Imports and Cleaning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-dataset-descriptions">Initial Dataset Descriptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-and-testing-the-linear-regression-model">Fitting and Testing the Linear Regression Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-of-each-attribute">Visualization of Each Attribute</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#r2-score">R2 Score</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error">Mean Squared Error</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-coefficients-and-residuals">Analysis of Coefficients and Residuals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repeat-experiment-5-more-times">Repeat Experiment 5 More Times</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-interpretations-on-the-simple-linear-regression-model">Final Interpretations on the Simple Linear Regression Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-using-only-one-feature">Linear Regression Using Only One Feature</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-model-optimization">Regression Model Optimization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lasso">LASSO</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree">Decision Tree</a></li>
 </ul>
 </li>
 </ul>
-
   </nav></div>
 
 </div></div>

@@ -1,0 +1,993 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Dataset Imports and Cleaning &#8212; Intro to Data Science Portfolio</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'assignment9';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="a10_splits.html" />
+    <link rel="prev" title="Evaluating Our Clusters" href="assignment8.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Intro to Data Science Portfolio</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="README.html">
+                    Getting Started
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="a5_us_presidential_elections.html">Are Presidential Popular Vote Wins Characterized by Political Party or Religion?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="a6_adults.html">Accuracy for GPR income&gt;=20k</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Assignment7.html">7.2 – Dataset and EDA</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="assignment8.html">Evaluating Our Clusters</a></li>
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Dataset Imports and Cleaning</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="assignment12.html">Classification of Fake News</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/assignment9.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Dataset Imports and Cleaning</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Dataset Imports and Cleaning</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-dataset-descriptions">Initial Dataset Descriptions</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-and-testing-the-linear-regression-model">Fitting and Testing the Linear Regression Model</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-of-each-attribute">Visualization of Each Attribute</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#r2-score">R2 Score</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error">Mean Squared Error</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-coefficients-and-residuals">Analysis of Coefficients and Residuals</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#repeat-experiment-5-more-times">Repeat Experiment 5 More Times</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#final-interpretations-on-the-simple-linear-regression-model">Final Interpretations on the Simple Linear Regression Model</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-using-only-one-feature">Linear Regression Using Only One Feature</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-model-optimization">Regression Model Optimization</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lasso">LASSO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree">Decision Tree</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">linear_model</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">font_scale</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">palette</span><span class="o">=</span><span class="s1">&#39;colorblind&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">linear_model</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;sklearn&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="dataset-imports-and-cleaning">
+<h1>Dataset Imports and Cleaning<a class="headerlink" href="#dataset-imports-and-cleaning" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the Automobile Dataset from UCI Machine Learning Library</span>
+<span class="n">automobile_url</span> <span class="o">=</span> <span class="s2">&quot;https://archive.ics.uci.edu/ml/machine-learning-databases/autos/imports-85.data&quot;</span>
+<span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;symboling&quot;</span><span class="p">,</span> <span class="s2">&quot;normalized-losses&quot;</span><span class="p">,</span> <span class="s2">&quot;make&quot;</span><span class="p">,</span> <span class="s2">&quot;fuel-type&quot;</span><span class="p">,</span> <span class="s2">&quot;aspiration&quot;</span><span class="p">,</span> <span class="s2">&quot;num-of-doors&quot;</span><span class="p">,</span> 
+           <span class="s2">&quot;body-style&quot;</span><span class="p">,</span> <span class="s2">&quot;drive-wheels&quot;</span><span class="p">,</span> <span class="s2">&quot;engine-location&quot;</span><span class="p">,</span> <span class="s2">&quot;wheel-base&quot;</span><span class="p">,</span> <span class="s2">&quot;length&quot;</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">,</span> 
+           <span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;curb-weight&quot;</span><span class="p">,</span> <span class="s2">&quot;engine-type&quot;</span><span class="p">,</span> <span class="s2">&quot;num-of-cylinders&quot;</span><span class="p">,</span> <span class="s2">&quot;engine-size&quot;</span><span class="p">,</span> <span class="s2">&quot;fuel-system&quot;</span><span class="p">,</span> 
+           <span class="s2">&quot;bore&quot;</span><span class="p">,</span> <span class="s2">&quot;stroke&quot;</span><span class="p">,</span> <span class="s2">&quot;compression-ratio&quot;</span><span class="p">,</span> <span class="s2">&quot;horsepower&quot;</span><span class="p">,</span> <span class="s2">&quot;peak-rpm&quot;</span><span class="p">,</span> <span class="s2">&quot;city-mpg&quot;</span><span class="p">,</span> <span class="s2">&quot;highway-mpg&quot;</span><span class="p">,</span> <span class="s2">&quot;price&quot;</span><span class="p">]</span>
+<span class="n">automobile_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">automobile_url</span><span class="p">,</span> <span class="n">names</span> <span class="o">=</span> <span class="n">columns</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">automobile_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Here we replace &#39;?&#39; in our numerical columns with NaN, and then remove those columns as</span>
+<span class="c1"># we do not want them to contribute with our data</span>
+<span class="n">automobile_df</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">automobile_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">automobile_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">automobile_df</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="initial-dataset-descriptions">
+<h1>Initial Dataset Descriptions<a class="headerlink" href="#initial-dataset-descriptions" title="Permalink to this heading">#</a></h1>
+<p>The Automobile Dataset from the UC Irvine Machine Learning Repository contains numerical and categorical information on the features of a given automobile and the given price of each vehicle. This allows a linear regression model to be effectively performed, as it can be assumed that continuous attributes like ‘highway-mpg’ scale linearly to vehicle price. The target variable for this study would therefore be automobile price. The automobile attributes that will be used to linearly map price (in dollars) are all based on numerical values. This includes: <br></p>
+<ul class="simple">
+<li><p>symboling (-3 - 3) measuring a risk factor used for insurance <br></p></li>
+<li><p>normalized average loss due to insurance claims (unitless)</p></li>
+<li><p>wheel-base (inches)</p></li>
+<li><p>length of car (inches)</p></li>
+<li><p>width of car (inches)</p></li>
+<li><p>height of car (inches)</p></li>
+<li><p>weight of car (pounds)</p></li>
+<li><p>engine size (cubic inches)</p></li>
+<li><p>bore (inches)</p></li>
+<li><p>stroke (inches)</p></li>
+<li><p>compression ratio (unitless)</p></li>
+<li><p>horsepower (horsepower)</p></li>
+<li><p>peak rpm (revolutions per minute)</p></li>
+<li><p>city mpg (miles per gallon)</p></li>
+<li><p>highway mpg (miles per gallon)</p></li>
+</ul>
+<p>The task of this regression analysis is to examine if automobile price can be effectively predicted based on the continuous features given above for each sample. This analysis assumes that automobile price can be represented as a linear relationship between these numerical attributes. Regression requires a dataset to have a relationship that can be modeled on an x-y plane, so that a mathematical correlation can be identified. By having continuous attributes and a continuous target variable, this analysis aims to find a “slope” and “intecept” to proportionally model this relationship. This dataset is suitable for a regression analysis as each numerical attribute and the target variable have continuous numerical scales, which are assumed to have some sort of relationship with each other.</p>
+</section>
+<section id="fitting-and-testing-the-linear-regression-model">
+<h1>Fitting and Testing the Linear Regression Model<a class="headerlink" href="#fitting-and-testing-the-linear-regression-model" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the X and y datasets</span>
+    <span class="c1"># X contains all numerical attributes</span>
+    <span class="c1"># y contains the price</span>
+<span class="n">automobile_X_multi</span> <span class="o">=</span> <span class="n">automobile_df</span><span class="p">[[</span><span class="s2">&quot;symboling&quot;</span><span class="p">,</span> <span class="s2">&quot;normalized-losses&quot;</span><span class="p">,</span> <span class="s2">&quot;wheel-base&quot;</span><span class="p">,</span> <span class="s2">&quot;length&quot;</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">,</span> 
+           <span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;curb-weight&quot;</span><span class="p">,</span> <span class="s2">&quot;engine-size&quot;</span><span class="p">,</span> <span class="s2">&quot;bore&quot;</span><span class="p">,</span> <span class="s2">&quot;stroke&quot;</span><span class="p">,</span> <span class="s2">&quot;compression-ratio&quot;</span><span class="p">,</span> <span class="s2">&quot;horsepower&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;peak-rpm&quot;</span><span class="p">,</span> <span class="s2">&quot;city-mpg&quot;</span><span class="p">,</span> <span class="s2">&quot;highway-mpg&quot;</span><span class="p">]]</span>
+<span class="n">automobile_X_multi</span> <span class="o">=</span> <span class="n">automobile_X_multi</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+
+<span class="n">automobile_y_multi</span> <span class="o">=</span> <span class="n">automobile_df</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span>
+<span class="n">automobile_y_multi</span> <span class="o">=</span> <span class="n">automobile_y_multi</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We split the red_X and red_y datasets into training and testing data</span>
+    <span class="c1"># The default training percentage is 75%</span>
+<span class="n">automobile_X_train</span><span class="p">,</span> <span class="n">automobile_X_test</span><span class="p">,</span> <span class="n">automobile_y_train</span><span class="p">,</span> <span class="n">automobile_y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">automobile_X_multi</span><span class="p">,</span> <span class="n">automobile_y_multi</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">17</span><span class="p">)</span>
+
+<span class="c1"># Here we print the shape of the training data and see that it is 75% of our original dataframe</span>
+<span class="n">automobile_X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">automobile_y_train</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">regr</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We fit our dataframe with our training data</span>
+<span class="n">regr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">automobile_X_train</span><span class="p">,</span> <span class="n">automobile_y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can then make predicted data based on our X_test</span>
+<span class="n">automobile_y_pred</span> <span class="o">=</span> <span class="n">regr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">automobile_X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualization-of-each-attribute">
+<h1>Visualization of Each Attribute<a class="headerlink" href="#visualization-of-each-attribute" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Loop through each predictor and plot</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">automobile_X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+
+    <span class="c1"># Create a new figure for each predictor to avoid overlap between plots</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    
+    <span class="c1"># Access the i-th predictor using .iloc for DataFrame (: means all rows, i means the iterative columns)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">automobile_X_test</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">automobile_y_test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Actual&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">automobile_X_test</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">automobile_y_pred</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Predicted&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Set labels and title</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">automobile_X_test</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Price ($)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">90</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see that some attributes were very effective predictors of the price of each vehicle. Many of these trends demonstrate a linear relationship, that seems to be modeled well by the fitting algorithm. It is worth noting that while each graph models an individual numerical attribute against the vehicle price, the red predicted points have already taken into account ALL of these training variables. Here we just model the final predicted points (y_pred) against the initial X_test that was used for the fitting algorithm. That way the red points have the price target variable associated with each initial test feature.</p>
+</section>
+<section id="r2-score">
+<h1>R2 Score<a class="headerlink" href="#r2-score" title="Permalink to this heading">#</a></h1>
+<p>When using multiple attribute variables, it is often difficult to graphically visualize the prediction by regression without modeling each attribute separately. This is because while a pseudo-linear relationship was found, it is not linear with respect to each attribute, but instead a combination of ALL attributes. Due to this, it is easier to demonstrate how accurate our regression experiment was by using statistical metrics. The first of which we will use is the R2 metric, the standard in measuring linear regression.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">automobile_y_test</span><span class="p">,</span> <span class="n">automobile_y_pred</span><span class="p">)</span>
+<span class="n">r2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is not a horrible r2 score. Given that we are using many features, this r2 score could tell us many things. First, the amount of attributes used to fit and predict the data could contribute to a more profound linear relationship as there is more robust data that could contribute to vehicle price. However, this comes with a potential fault where some attributes with little to no contribution affect the model’s prediction.</p>
+</section>
+<section id="mean-squared-error">
+<h1>Mean Squared Error<a class="headerlink" href="#mean-squared-error" title="Permalink to this heading">#</a></h1>
+<p>Before moving on, we will run another statistical metric, using the mean squared error to eventually find the mean absolute error. This can be compared to summary statistics of our price to see how significant this error is. It is worth nothing that this value involves an absolute value of each error, showing how much each deviated from 0 in either direction. When we look at individual residuals later, we see that there is error in both directions about equally.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_abs_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">automobile_y_test</span><span class="p">,</span> <span class="n">automobile_y_pred</span><span class="p">))</span>
+<span class="n">mean_abs_error</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">automobile_y_test</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see that while the mean absolute error is relatively high (3079.32 dollars), this is actually significantly lower than the standard deviation of the test dataset. This means that while there is a very large spread in the price of automobiles in this dataset, the prediction algorithm was able to estimate the price within reason. While this is still a fairly large recorded error, it seems to support the r2 value of 0.709.</p>
+</section>
+<section id="analysis-of-coefficients-and-residuals">
+<h1>Analysis of Coefficients and Residuals<a class="headerlink" href="#analysis-of-coefficients-and-residuals" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">regr</span><span class="o">.</span><span class="vm">__dict__</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>After this analysis of linear regression, we can look at the individual coeffecients and residuals for each attribute. The following is an array of each coefficient. Because we performed a multivariable analysis in which we used multiple predictive attributes to fit and train our model, we get an array of coefficients. Each coefficient represents one attribute. We can use this array to see what attributes had the greatest effect on our model (the higher magnitude of the coefficient). This means that our model depends on these more. We can see (based on the 10s magnitude of 3), that the attributes with the most impact are the automobiles <strong>‘bore’</strong> and <strong>‘stroke’</strong>. These are both measurements refering to the cylinders inside an engine, which surprised me. This may suggest that vehicle price is most influenced on the engine’s dimensions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">regr</span><span class="o">.</span><span class="n">coef_</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>On the other hand, we can look at residuals for each individual sample in our y_test and y_pred. We can see that these individual residuals have a large spread. There are some values with large magnitude in the negative direction (ie. -7632) and the range is extended to the opposite extreme (ie. 9948). This seems to suggest that while the overall mean residual error and r2 values was fairly good (the predictions are reasonably effective on the aggregate level), <strong>the Linear Regression algorithm is not too good at predicting individual automobile prices</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">residuals</span> <span class="o">=</span> <span class="n">automobile_y_test</span> <span class="o">-</span> <span class="n">automobile_y_pred</span>
+<span class="n">residuals</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="repeat-experiment-5-more-times">
+<h1>Repeat Experiment 5 More Times<a class="headerlink" href="#repeat-experiment-5-more-times" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add previous r2 and mean_abs_error to a list</span>
+<span class="n">r2_scores</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">mean_abs_error_scores</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">r2_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span>
+<span class="n">mean_abs_error_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_abs_error</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">test</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">automobile_X_train</span><span class="p">,</span> <span class="n">automobile_X_test</span><span class="p">,</span> <span class="n">automobile_y_train</span><span class="p">,</span> <span class="n">automobile_y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">automobile_X_multi</span><span class="p">,</span> <span class="n">automobile_y_multi</span><span class="p">)</span>
+    <span class="n">regr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">automobile_X_train</span><span class="p">,</span> <span class="n">automobile_y_train</span><span class="p">)</span>
+    <span class="n">automobile_y_pred</span> <span class="o">=</span> <span class="n">regr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">automobile_X_test</span><span class="p">)</span>
+
+    <span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">automobile_y_test</span><span class="p">,</span> <span class="n">automobile_y_pred</span><span class="p">)</span>
+    <span class="n">mean_abs_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">automobile_y_test</span><span class="p">,</span> <span class="n">automobile_y_pred</span><span class="p">))</span>
+
+    <span class="n">r2_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span>
+    <span class="n">mean_abs_error_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_abs_error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Storing our Metrics into a Dataframe for Easy Examination</span>
+<span class="n">metric_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;r2 Values&#39;</span><span class="p">:</span> <span class="n">r2_scores</span><span class="p">,</span>
+    <span class="s1">&#39;Mean Absolute Errors ($)&#39;</span><span class="p">:</span> <span class="n">mean_abs_error_scores</span>
+<span class="p">})</span>
+<span class="n">metric_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">metric_df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>While the model contains consistency in how well it is able to predict automobile prices on an aggregate level, demonstrated by relative consistency in the r2 values and the mean absolut errors, I would not trust the deployment of this model. This is because individual residuals (y_test - y_pred) demonstrate a wide range in the model’s predictions. On any individual automobile, the prediction for a price dependent on all contributing attributes seems too varied to effectively use. As mentioned before, the aggregate metrics for the entire model are fairly consistent meaning that there may be some linear relationship present, but I think this model would be better examined with either a different regression model or by looking at only a few defining attributes (like ‘bore’ and ‘stroke’ as mentioned).</p>
+</section>
+<section id="final-interpretations-on-the-simple-linear-regression-model">
+<h1>Final Interpretations on the Simple Linear Regression Model<a class="headerlink" href="#final-interpretations-on-the-simple-linear-regression-model" title="Permalink to this heading">#</a></h1>
+<p>Therefore, while the performance of the linear regression algorithm is consistent enough to be accurate on aggregate, the variance in individual residuals is too strong to recommend the use of this model. While this task is too complicated to be done without machine learning, we can help the machine learning algorithm to obtain better potential results. Based on the coefficients that are largest in magnitude (and therefore more characteristic of this regression model), we can try to do this analysis again with only a few attributes instead of all numerical data. We could also attempt to optimize this analysis with another regression model to see if a more complex model is better suited.</p>
+</section>
+<section id="linear-regression-using-only-one-feature">
+<h1>Linear Regression Using Only One Feature<a class="headerlink" href="#linear-regression-using-only-one-feature" title="Permalink to this heading">#</a></h1>
+<p>In this next section, we will try fitting the model based on only one feature to see if our scores improve. If successful, we will be looking for r2 values closer to 1 (demonstrating near-linearity) and reduced mean absolute errors. Ideally, we would also see individual residuals that are more consistent, as it would mean that the model is good at overall automobile price prediction. In this analysis, we will use the attribute ‘bore’ as it has the highest coefficient magnitude. This means our original multi-variable analysis depended on the linearity of ‘bore’ the most. In terms of automobiles, ‘bore’ represents the diameter of an engine’s cylinder, which is where the piston travels through. This could affect engine performance, and possibly linearly correlate to automobile price.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create new automobile_X and automobile_y datasets</span>
+<span class="n">automobile_X_single</span> <span class="o">=</span> <span class="n">automobile_df</span><span class="p">[</span><span class="s2">&quot;bore&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+<span class="n">automobile_X_single</span> <span class="o">=</span> <span class="n">automobile_X_single</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+<span class="n">automobile_y_single</span> <span class="o">=</span> <span class="n">automobile_df</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span>
+<span class="n">automobile_y_single</span> <span class="o">=</span> <span class="n">automobile_y_single</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+<span class="c1"># Get training and fitting data from train_test_split</span>
+<span class="n">automobile_X_train</span><span class="p">,</span> <span class="n">automobile_X_test</span><span class="p">,</span> <span class="n">automobile_y_train</span><span class="p">,</span> <span class="n">automobile_y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">automobile_X_single</span><span class="p">,</span> <span class="n">automobile_y_single</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">6</span><span class="p">)</span>
+
+<span class="c1"># Fit the model using training data</span>
+<span class="n">regr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">automobile_X_train</span><span class="p">,</span> <span class="n">automobile_y_train</span><span class="p">)</span>
+
+<span class="c1"># Predict the model using our test data (which is just &quot;bore&quot; values)</span>
+<span class="n">automobile_y_pred</span> <span class="o">=</span> <span class="n">regr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">automobile_X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r2_score</span><span class="p">(</span><span class="n">automobile_y_test</span><span class="p">,</span> <span class="n">automobile_y_pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">automobile_y_test</span><span class="p">,</span> <span class="n">automobile_y_pred</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Access the i-th predictor using .iloc for DataFrame (: means all rows, i means the iterative columns)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">automobile_X_test</span><span class="p">,</span> <span class="n">automobile_y_test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Actual&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">automobile_X_test</span><span class="p">,</span> <span class="n">automobile_y_pred</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Predicted&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+
+<span class="c1"># Set labels and title</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Bore (in)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Price ($)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">90</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see from this analysis that when looking at just one attribute like “bore”, the results are even worse (based on our r2 and mean absolute error). This suggests that the data could be better represented by more than one feature, though not all of them (as we discovered earlier). To properly determine if there is a trend between automobile physical attributes and its price, there would need to be a further analysis performed on only a few, chatacterizing attributes. “bore” size could be one of these attributes, but as shown above, can not be used on its own to determine a linear trend.</p>
+<p>Based on the above analysis of the multivariable prediction model against true values, the attributes that I would be interested in combined for a further analysis would be <strong>Bore, Automobile Length, Automobile Width, City MPG, and Highway MPG</strong>, as these visually look like they have the most linear relationship between price and its numerical value.</p>
+</section>
+<section id="regression-model-optimization">
+<h1>Regression Model Optimization<a class="headerlink" href="#regression-model-optimization" title="Permalink to this heading">#</a></h1>
+<section id="lasso">
+<h2>LASSO<a class="headerlink" href="#lasso" title="Permalink to this heading">#</a></h2>
+<p>To optimize the model, we will use the LASSO method. As determined using the simple Linear Regression model, using all numerical features did not result in effective model predictions at the individual level (and not great at the aggregate level either). Our residuals were varied significantly and our statistic metrics were not optimized. In this section we will attempt to solve this problem by using a more complicated model. <strong>LASSO</strong> helps in determining which features are less linearly correlated to our target vartiable (price), and does not train based on them (or at least trains less based on these attributes). This analysis will allow us to see which attributes it deems most important while ideally giving us a more effective regression.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We use the same automoble_X_multi and automobile_y_multi datasets that we have separated earlier to make our training and testing data</span>
+<span class="n">automobile_X_train</span><span class="p">,</span> <span class="n">automobile_X_test</span><span class="p">,</span> <span class="n">automobile_y_train</span><span class="p">,</span> <span class="n">automobile_y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">automobile_X_multi</span><span class="p">,</span> <span class="n">automobile_y_multi</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">17</span><span class="p">)</span>
+
+<span class="c1"># We then fit a score the LASSO model with the same parameters</span>
+<span class="n">lasso</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">Lasso</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">lasso</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">automobile_X_train</span><span class="p">,</span> <span class="n">automobile_y_train</span><span class="p">)</span>
+<span class="n">lasso</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">automobile_X_test</span><span class="p">,</span> <span class="n">automobile_y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lasso</span><span class="o">.</span><span class="n">coef_</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="decision-tree">
+<h2>Decision Tree<a class="headerlink" href="#decision-tree" title="Permalink to this heading">#</a></h2>
+<p>Weirdly enough, it seems that with an alpha of 1, no coefficients are zero and they actually resemble the slopes given above from the linear regression model. Because of this, we are going to try a Decision Tree instead. This result from this LASSO model seems to suggest that these continuous variables are not linearly correlated to price (and none have a stronger correlation necessarily). Since all lasso coefficients model the linear regression, it is reasonable to assume that no attributes have a strong correlation to price.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fit the Decision Tree model with default parameters</span>
+<span class="n">tree</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">random_state</span> <span class="o">=</span> <span class="mi">19</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">automobile_X_multi</span><span class="p">,</span> <span class="n">automobile_y_multi</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>cross_val_score fit and scores using default parameters for DecisionTreeRegressor(). It splits the dataset into 5 folds (cv = 5) and calculate a mean score across all five folds. We can see that with the default decision tree parameters, our cross_val_score was very low at 0.46</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Here we decide which parameters to change</span>
+<span class="c1"># I altered max_depth, min_samples_split, and min_samples_leaf</span>
+
+<span class="n">param_dt</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;criterion&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;squared_error&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">)),</span>
+    <span class="s1">&#39;min_samples_split&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span>
+    <span class="s1">&#39;min_samples_leaf&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># All parameters aim to reduce complexity of the decision tree</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fit a GridSearchCV with our DecisionTreeRegressor and our altered parameters</span>
+    <span class="c1"># We use the training data previously split for the LASSO technique.</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">random_state</span> <span class="o">=</span> <span class="mi">19</span><span class="p">)</span>
+<span class="n">dt_opt</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">param_dt</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">dt_opt</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">automobile_X_train</span><span class="p">,</span><span class="n">automobile_y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using our Decision Tree Model, we predict values for y given X_test</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">dt_opt</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">automobile_X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The best fitting model parameters</span>
+<span class="n">dt_opt</span><span class="o">.</span><span class="n">best_params_</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The best fit model parameters differ from our default decision tree, with a mean cross_val_score of 0.46 given our random state of 19. While the default max_depth is None, this max_depth was raised to 10. The min_samples_leaf parameter stayed the same as default, but the min_samples_split increased from 2 to 4. This altering in parameters, with a similar cv of 5fold, gave us an optimized score of 0.77. While this score is much better than the default Decision Tree, it is not too much greater than the simple Linear Regression model. We will now examine whether the performance is great enough to warant the use of the more complicated Decision Tree model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This gives the most optimized score from our new parameters against our held-out test set</span>
+<span class="n">dt_opt</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">automobile_X_test</span><span class="p">,</span><span class="n">automobile_y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># These are the metrics for optimized conditions</span>
+<span class="n">dt_opt_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dt_opt</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">)</span>
+<span class="n">dt_opt_df</span><span class="p">[(</span><span class="n">dt_opt_df</span><span class="p">[</span><span class="s1">&#39;param_max_depth&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">10</span><span class="p">)</span> <span class="o">&amp;</span>
+    <span class="p">(</span><span class="n">dt_opt_df</span><span class="p">[</span><span class="s1">&#39;param_min_samples_leaf&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span>
+    <span class="p">(</span><span class="n">dt_opt_df</span><span class="p">[</span><span class="s1">&#39;param_min_samples_split&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># These are the metrics for default conditions</span>
+<span class="n">dt_opt_df</span><span class="p">[(</span><span class="n">dt_opt_df</span><span class="p">[</span><span class="s1">&#39;param_max_depth&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">())</span> <span class="o">&amp;</span>
+    <span class="p">(</span><span class="n">dt_opt_df</span><span class="p">[</span><span class="s1">&#39;param_min_samples_leaf&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span>
+    <span class="p">(</span><span class="n">dt_opt_df</span><span class="p">[</span><span class="s1">&#39;param_min_samples_split&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see that the default mean_fit_time is much greater (about 8 times) that of the optimized conditions. This is the same when comparing mean_score_times too. This means that as far as time complexity goes, the optimized conditions are much more effective time-sensitive than the default conditions. Not only this, but the mean_test_score on average is almost 0.1 higher. On a scale of 0-1, this is a huge difference, with the optimized test_score for our Decision Tree Regression model being much greater than that of default parameters. This meaningful difference encourages the use of the optimized Decision Tree for this analysis.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Increasing our Cross Validation Folds to 10</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">random_state</span> <span class="o">=</span> <span class="mi">19</span><span class="p">)</span>
+<span class="n">dt_opt</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">param_dt</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">dt_opt</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">automobile_X_train</span><span class="p">,</span><span class="n">automobile_y_train</span><span class="p">)</span>
+<span class="n">dt_opt</span><span class="o">.</span><span class="n">best_params_</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># These are the metrics for optimized conditions</span>
+<span class="n">dt_opt_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dt_opt</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">)</span>
+<span class="n">dt_opt_df</span><span class="p">[(</span><span class="n">dt_opt_df</span><span class="p">[</span><span class="s1">&#39;param_max_depth&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&amp;</span>
+    <span class="p">(</span><span class="n">dt_opt_df</span><span class="p">[</span><span class="s1">&#39;param_min_samples_leaf&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span>
+    <span class="p">(</span><span class="n">dt_opt_df</span><span class="p">[</span><span class="s1">&#39;param_min_samples_split&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">9</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># These are the metrics for default conditions</span>
+<span class="n">dt_opt_df</span><span class="p">[(</span><span class="n">dt_opt_df</span><span class="p">[</span><span class="s1">&#39;param_max_depth&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">())</span> <span class="o">&amp;</span>
+    <span class="p">(</span><span class="n">dt_opt_df</span><span class="p">[</span><span class="s1">&#39;param_min_samples_leaf&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span>
+    <span class="p">(</span><span class="n">dt_opt_df</span><span class="p">[</span><span class="s1">&#39;param_min_samples_split&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>When the cv is increased to 10, we see drastically different results. While the mean_fit_time is still much lower than that of the default parameters, we now see a lower mean_test_score and completely different optimal parameters. This suggest that there is not a clear trend on which parameters are best optimized (not a linear scale with parameterization). This means that the model may have been better at these optimal parameters by chance under 5-fold, and that has little meaning in how effective the model is at predicting the automobile price.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="assignment8.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Evaluating Our Clusters</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="a10_splits.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">&lt;no title&gt;</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Dataset Imports and Cleaning</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-dataset-descriptions">Initial Dataset Descriptions</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-and-testing-the-linear-regression-model">Fitting and Testing the Linear Regression Model</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-of-each-attribute">Visualization of Each Attribute</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#r2-score">R2 Score</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error">Mean Squared Error</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-coefficients-and-residuals">Analysis of Coefficients and Residuals</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#repeat-experiment-5-more-times">Repeat Experiment 5 More Times</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#final-interpretations-on-the-simple-linear-regression-model">Final Interpretations on the Simple Linear Regression Model</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-using-only-one-feature">Linear Regression Using Only One Feature</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-model-optimization">Regression Model Optimization</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lasso">LASSO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree">Decision Tree</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Logan McCue
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

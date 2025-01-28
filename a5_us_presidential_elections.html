@@ -1,0 +1,1492 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Are Presidential Popular Vote Wins Characterized by Political Party or Religion? &#8212; Intro to Data Science Portfolio</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'a5_us_presidential_elections';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Accuracy for GPR income&gt;=20k" href="a6_adults.html" />
+    <link rel="prev" title="Getting Started" href="README.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Intro to Data Science Portfolio</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="README.html">
+                    Getting Started
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Are Presidential Popular Vote Wins Characterized by Political Party or Religion?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="a6_adults.html">Accuracy for GPR income&gt;=20k</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Assignment7.html">7.2 – Dataset and EDA</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="assignment8.html">Evaluating Our Clusters</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="assignment9.html">Dataset Imports and Cleaning</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="assignment12.html">Classification of Fake News</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/a5_us_presidential_elections.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Are Presidential Popular Vote Wins Characterized by Political Party or Religion?</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="are-presidential-popular-vote-wins-characterized-by-political-party-or-religion">
+<h1>Are Presidential Popular Vote Wins Characterized by Political Party or Religion?<a class="headerlink" href="#are-presidential-popular-vote-wins-characterized-by-political-party-or-religion" title="Permalink to this heading">#</a></h1>
+<p>We begin our analysis by importing libraries from pandas, seaborn, and BeautifulSoup</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">bs4</span><span class="w"> </span><span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>‘requests’ allows us to request access when we webscrape from various websties. BeautifulSoup is the package that allows us to webscrape in general and gives us tools when doing it. Pandas is needed for data manipulation and seaborn is needed for data visualization.</p>
+<p>First we save the url for presidential information from the millercenter. The millercenter is an affiliate of the University of Virginia which deals in political history. We then use requests and BeautifulSoup to get the htmlfile and then parse it to store the html code as the variable miller_presidents</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">miller_presidents_url</span> <span class="o">=</span> <span class="s1">&#39;https://millercenter.org/president&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">miller_presidents_html</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">miller_presidents_url</span><span class="p">)</span><span class="o">.</span><span class="n">content</span>
+
+<span class="n">miller_presidents</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">miller_presidents_html</span><span class="p">,</span><span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>I will not output the full html code as it is quite long. But miller_presidents essentially stores the html code for the website.</p>
+<p>We then inspected the html code for the website to find the segments pertaining to each individual president. This was under the html title “div” and under the class “president-info views-row”. Using the .find_all() command, we are allowed to separate each instance of this and store the result in the list ‘presidents’. Afterwards we printed the length of ‘presidents’ to confirm.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">presidents</span> <span class="o">=</span> <span class="n">miller_presidents</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">,</span> <span class="s2">&quot;president-info views-row&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">presidents</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>47
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, there are 46 items in the ‘presidents’ list, which makes sense as there have been 46 presidents. This proves that the separation of all presidents on this homemade site was successful.</p>
+<p>We then printed the first instance in presidents: ‘presidents[0]’. This should be a generic code about George Washington, with a link that will direct us to more information on George Washington.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">presidents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;div class=&quot;president-info views-row&quot;&gt;&lt;div class=&quot;image-wrapper&quot;&gt;
+&lt;div class=&quot;views-field--preview-image&quot;&gt; &lt;a href=&quot;/president/washington&quot; hreflang=&quot;en&quot;&gt;&lt;img alt=&quot;George Washington&quot; height=&quot;360&quot; loading=&quot;lazy&quot; src=&quot;/sites/default/files/styles/square_thumb_2x_360x360/public/2016-10/01-george-washington_1.png?itok=SQolTg7q&quot; width=&quot;360&quot;/&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;p class=&quot;views-field--president-number&quot;&gt;&lt;span class=&quot;field-content&quot;&gt;1&lt;/span&gt;&lt;/p&gt;
+&lt;p class=&quot;views-field--quote&quot;&gt;&lt;span class=&quot;field-content&quot;&gt;The basis of our political systems is the right of the people to make and to alter their constitutions of government.&lt;br/&gt;
+&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;info-wrapper&quot;&gt;
+&lt;p class=&quot;views-field--inauguration-date&quot;&gt;1789&lt;/p&gt;
+&lt;p class=&quot;views-field--date-ended&quot;&gt;1797&lt;/p&gt;
+&lt;p class=&quot;views-field--title&quot;&gt;&lt;span class=&quot;field-content&quot;&gt;&lt;a href=&quot;/president/washington&quot; hreflang=&quot;en&quot;&gt;George Washington&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, this is a much shorter sample of code, all directed on a few details of George Washington.</p>
+<p>We then parse the html file code to get a string of the name of the president: George Washington. Looking at the html code under presidents[0], we see that the string “George Washington” is with a “p” header, under the class “views-field–title”. We use a .find() function to look for that instance. We then notice that it is further located under an “a” tab as a string. The final code to end up with the name of the president is shown below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">presidents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="s2">&quot;views-field--title&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">string</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;George Washington&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see this worked for George Washington and it can be assumed that this will work for every president as the format of the website looks generally the same.</p>
+<p>We can test that theory my setting up a for loop for every person in the presidents list. We will attempt to find the name of the president in the same location in the html file and store our president names to a respective list.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">president_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">person</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="s2">&quot;views-field--title&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">string</span> <span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">presidents</span><span class="p">]</span>
+<span class="n">president_names</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;George Washington&#39;,
+ &#39;John Adams&#39;,
+ &#39;Thomas Jefferson&#39;,
+ &#39;James Madison&#39;,
+ &#39;James Monroe&#39;,
+ &#39;John Quincy Adams&#39;,
+ &#39;Andrew Jackson&#39;,
+ &#39;Martin Van Buren&#39;,
+ &#39;William Harrison&#39;,
+ &#39;John Tyler&#39;,
+ &#39;James K. Polk&#39;,
+ &#39;Zachary Taylor&#39;,
+ &#39;Millard Fillmore&#39;,
+ &#39;Franklin Pierce&#39;,
+ &#39;James Buchanan&#39;,
+ &#39;Abraham Lincoln&#39;,
+ &#39;Andrew Johnson&#39;,
+ &#39;Ulysses S. Grant&#39;,
+ &#39;Rutherford B. Hayes&#39;,
+ &#39;James A. Garfield&#39;,
+ &#39;Chester A. Arthur&#39;,
+ &#39;Grover Cleveland&#39;,
+ &#39;Benjamin Harrison&#39;,
+ &#39;Grover Cleveland&#39;,
+ &#39;William McKinley&#39;,
+ &#39;Theodore Roosevelt&#39;,
+ &#39;William Taft&#39;,
+ &#39;Woodrow Wilson&#39;,
+ &#39;Warren G. Harding&#39;,
+ &#39;Calvin Coolidge&#39;,
+ &#39;Herbert Hoover&#39;,
+ &#39;Franklin D. Roosevelt&#39;,
+ &#39;Harry S. Truman&#39;,
+ &#39;Dwight D. Eisenhower&#39;,
+ &#39;John F. Kennedy&#39;,
+ &#39;Lyndon B. Johnson&#39;,
+ &#39;Richard Nixon&#39;,
+ &#39;Gerald Ford&#39;,
+ &#39;Jimmy Carter&#39;,
+ &#39;Ronald Reagan&#39;,
+ &#39;George H. W. Bush&#39;,
+ &#39;Bill Clinton&#39;,
+ &#39;George W. Bush&#39;,
+ &#39;Barack Obama&#39;,
+ &#39;Donald Trump&#39;,
+ &#39;Joe Biden&#39;,
+ &#39;Donald Trump&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>And as we can see, that worked. We have a list of every president in order from George Washington to our current president, Joe Biden.</p>
+<p>Next we will use a very similar method to obtain a link each president’s specific webpage. This is located in the same “a” header as before, but this time we look for an attribute of the “a” header that has ‘href’. This will give us our link for George Washington.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">washington_url</span> <span class="o">=</span> <span class="n">presidents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="s2">&quot;views-field--title&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+<span class="n">washington_url</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;/president/washington&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now while this link is correct, it is only an extension from the greater <a class="reference external" href="http://millercenter.org">millercenter.org</a> website. So when we use requests and BeautifulSoup to parse and obtain our html information, we must concatenate “<a class="reference external" href="https://millercenter.org">https://millercenter.org</a>” with our washington_url extension. After doing that we get the html information for George Washington.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">washington_html</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://millercenter.org&quot;</span> <span class="o">+</span> <span class="n">washington_url</span><span class="p">)</span><span class="o">.</span><span class="n">content</span>
+<span class="n">washington_info</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">washington_html</span><span class="p">,</span><span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Similarly, I will not print out the full washington_info variable which stores our information, but with subsequent steps we can see that it worked.</p>
+<p>For instance, our next step is looking for the fast facts on George Washington. On the website itself, these appear in their own separate box and we need to find that box. Looking at the html code, we notice that all of the facts are within the “div” heading under the “fast-facts-wrapper” class. We can use the .find() function to look for that section on George Washington.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">washington_info</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">,</span> <span class="s2">&quot;fast-facts-wrapper&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;div class=&quot;fast-facts-wrapper&quot;&gt;
+&lt;h3&gt;Fast Facts&lt;/h3&gt;
+&lt;div class=&quot;data fullname-data&quot;&gt;
+&lt;label&gt;Full Name&lt;/label&gt;
+&lt;div&gt;George Washington &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;data date-data&quot;&gt;
+&lt;label&gt;Birth Date&lt;/label&gt;
+&lt;div&gt;&lt;time datetime=&quot;1732-02-22T12:00:00Z&quot;&gt;February 22, 1732&lt;/time&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;data date-data&quot;&gt;
+&lt;label&gt;Death Date&lt;/label&gt;
+&lt;div&gt;&lt;time datetime=&quot;1799-12-14T12:00:00Z&quot;&gt;December 14, 1799&lt;/time&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;data string-data&quot;&gt;
+&lt;label&gt;Birth Place&lt;/label&gt;
+&lt;div&gt;Pope’s Creek, Virginia&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;data string-data&quot;&gt;
+&lt;label&gt;Education&lt;/label&gt;
+&lt;div&gt;The equivalent of an elementary school education&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;data string-data&quot;&gt;
+&lt;label&gt;Religion&lt;/label&gt;
+&lt;div&gt;Episcopalian&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;data string-data&quot;&gt;
+&lt;label&gt;Career&lt;/label&gt;
+&lt;div&gt;Soldier, Planter&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;data string-data&quot;&gt;
+&lt;label&gt;Political Party&lt;/label&gt;
+&lt;div&gt;Federalist&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;data string-data&quot;&gt;
+&lt;label&gt;Nickname&lt;/label&gt;
+&lt;div&gt;“Father of His Country”&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;data string-data&quot;&gt;
+&lt;label&gt;Marriage&lt;/label&gt;
+&lt;div&gt;January 6, 1759, to Martha Dandridge Custis (1731–1802)&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;data string-data&quot;&gt;
+&lt;label&gt;Children&lt;/label&gt;
+&lt;div&gt;None&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;data date-data&quot;&gt;
+&lt;label&gt;Inauguration Date&lt;/label&gt;
+&lt;div&gt;
+&lt;div&gt;&lt;time datetime=&quot;1789-04-30T12:00:00Z&quot;&gt;April 30, 1789&lt;/time&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;data date-data&quot;&gt;
+&lt;label&gt;Date Ended&lt;/label&gt;
+&lt;div&gt;
+&lt;div&gt;&lt;time datetime=&quot;1797-03-04T12:00:00Z&quot;&gt;March 4, 1797&lt;/time&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;data number-data&quot;&gt;
+&lt;label&gt;President Number&lt;/label&gt;
+&lt;div&gt;
+&lt;div&gt;1&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;data string-data&quot;&gt;
+&lt;label&gt;Burial Place&lt;/label&gt;
+&lt;div&gt;Family vault, Mount Vernon, Virginia&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see that it was successfully printed! This fast facts section has great information on their start and end date, political affiliations, birth place, marriage information, and more!</p>
+<p>Perhaps the most useful information for our purposes is their political affiliation. We can look for it by specifically using the .find() function to look for a heading “label” in which the string portion of that label is “Political Party”. As this only appears once, we can get our political_party_label. However, this is not enough. We use the .find_next_sibling() function with the “div” parameter to look for the “div” section that appears AFTER this label. We strip this text to obtain our political party.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">political_party_label</span> <span class="o">=</span> <span class="n">washington_info</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;Political Party&quot;</span><span class="p">)</span>
+<span class="n">political_party_info</span> <span class="o">=</span> <span class="n">political_party_label</span><span class="o">.</span><span class="n">find_next_sibling</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="n">political_party_info</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Federalist&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, the political party affiliation for George Washington is a “Federalist”. This is exactly what we are looking for and matches what we expect from George Washington. Though he frowned against political parties, his views aligned more with the Federalists.</p>
+<p>Since we expect the method of obtaining this string to be the same among all presidents, we can run a loop that obtains the parties for each president. This uses the exact same method as before. As we expect this to work, we create a list for not only the parties, but for other key data as well. In specific, we obtain presidential birth_places, inauguration_dates, end_dates, educations, religions, and presidential order. These are all separate lists that we plan to use in a dataframe later.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parties</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">birth_places</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">inauguration_dates</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">educations</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">religions</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">end_dates</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">pres_order</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">president</span> <span class="ow">in</span> <span class="n">presidents</span><span class="p">:</span>
+    <span class="n">president_url</span> <span class="o">=</span> <span class="n">president</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="s2">&quot;views-field--title&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+    <span class="n">president_html</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://millercenter.org&quot;</span> <span class="o">+</span> <span class="n">president_url</span><span class="p">)</span><span class="o">.</span><span class="n">content</span>
+    <span class="n">president_info</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">president_html</span><span class="p">,</span><span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Search and store parties</span>
+    <span class="n">party_label</span> <span class="o">=</span> <span class="n">president_info</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;Political Party&quot;</span><span class="p">)</span>
+    <span class="n">political_party</span> <span class="o">=</span> <span class="n">party_label</span><span class="o">.</span><span class="n">find_next_sibling</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">parties</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">political_party</span><span class="p">)</span>
+
+    <span class="c1"># Search and store birthplaces</span>
+    <span class="n">birthplace_label</span> <span class="o">=</span> <span class="n">president_info</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;Birth Place&quot;</span><span class="p">)</span>
+    <span class="n">birthplace</span> <span class="o">=</span> <span class="n">birthplace_label</span><span class="o">.</span><span class="n">find_next_sibling</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">birth_places</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">birthplace</span><span class="p">)</span>
+
+    <span class="c1"># Search and store inauguration dates</span>
+    <span class="n">inauguration_label</span> <span class="o">=</span> <span class="n">president_info</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;Inauguration Date&quot;</span><span class="p">)</span>
+    <span class="n">inauguration</span> <span class="o">=</span> <span class="n">inauguration_label</span><span class="o">.</span><span class="n">find_next_sibling</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">inauguration_dates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inauguration</span><span class="p">)</span>
+
+    <span class="c1"># Search and store education info</span>
+    <span class="n">education_label</span> <span class="o">=</span> <span class="n">president_info</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;Education&quot;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">education_level</span> <span class="o">=</span> <span class="n">education_label</span><span class="o">.</span><span class="n">find_next_sibling</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">educations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">education_level</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">educations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">NA</span><span class="p">)</span>
+
+    <span class="c1"># Search and store religion info</span>
+    <span class="n">religion_label</span> <span class="o">=</span> <span class="n">president_info</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;Religion&quot;</span><span class="p">)</span>
+    <span class="n">religion</span> <span class="o">=</span> <span class="n">religion_label</span><span class="o">.</span><span class="n">find_next_sibling</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">religions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">religion</span><span class="p">)</span>
+
+    <span class="c1"># Search and store term end date info</span>
+    <span class="n">term_end_label</span> <span class="o">=</span> <span class="n">president_info</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;Date Ended&quot;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">end_date</span> <span class="o">=</span> <span class="n">term_end_label</span><span class="o">.</span><span class="n">find_next_sibling</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">end_dates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">end_date</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">end_dates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Present&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Search and store president number</span>
+    <span class="n">pres_number_label</span> <span class="o">=</span> <span class="n">president_info</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;President Number&quot;</span><span class="p">)</span>
+    <span class="n">pres_number</span> <span class="o">=</span> <span class="n">pres_number_label</span><span class="o">.</span><span class="n">find_next_sibling</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">pres_order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pres_number</span><span class="p">)</span>
+
+<span class="n">religions</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Episcopalian&#39;,
+ &#39;Unitarian&#39;,
+ &#39;No formal affiliation&#39;,
+ &#39;Episcopalian&#39;,
+ &#39;Episcopalian&#39;,
+ &#39;Unitarian&#39;,
+ &#39;Presbyterian&#39;,
+ &#39;Dutch Reformed&#39;,
+ &#39;Episcopalian&#39;,
+ &#39;Episcopalian&#39;,
+ &#39;Presbyterian&#39;,
+ &#39;Episcopalian&#39;,
+ &#39;Unitarian&#39;,
+ &#39;Episcopalian&#39;,
+ &#39;Presbyterian&#39;,
+ &#39;No formal affiliation&#39;,
+ &#39;No formal affiliation&#39;,
+ &#39;Methodist&#39;,
+ &#39;Methodist&#39;,
+ &#39;Disciples of Christ&#39;,
+ &#39;Episcopalian&#39;,
+ &#39;Presbyterian&#39;,
+ &#39;Presbyterian&#39;,
+ &#39;Presbyterian&#39;,
+ &#39;Methodist&#39;,
+ &#39;Dutch Reformed&#39;,
+ &#39;Unitarian&#39;,
+ &#39;Presbyterian&#39;,
+ &#39;Baptist&#39;,
+ &#39;Congregationalist&#39;,
+ &#39;Society of Friends (Quaker)&#39;,
+ &#39;Episcopalian&#39;,
+ &#39;Baptist&#39;,
+ &#39;Presbyterian&#39;,
+ &#39;Roman Catholic&#39;,
+ &#39;Disciples of Christ&#39;,
+ &#39;Society of Friends (Quaker)&#39;,
+ &#39;Episcopalian&#39;,
+ &#39;Baptist&#39;,
+ &#39;Christian Church&#39;,
+ &#39;Episcopalian&#39;,
+ &#39;Baptist&#39;,
+ &#39;Methodist&#39;,
+ &#39;Christian&#39;,
+ &#39;Presbyterian&#39;,
+ &#39;Roman Catholic&#39;,
+ &#39;Presbyterian&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>As an example, we printed out the presidental religions. We can see that this worked for religions, and without errors, for all of our other lists. This is great as we can now create a dataframe summarizing our new dataset!</p>
+<p>We create the dataset here by using the pandas DataFrame method. We pass in a dictionary that contained a column title as our first element and the respective list as our second element. This creates a dataframe in nice organized columns</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">president_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Presidential Order&#39;</span> <span class="p">:</span> <span class="n">pres_order</span><span class="p">,</span><span class="s1">&#39;Name&#39;</span><span class="p">:</span><span class="n">president_names</span><span class="p">,</span><span class="s1">&#39;Party&#39;</span><span class="p">:</span><span class="n">parties</span><span class="p">,</span>
+              <span class="s1">&#39;Birth Place&#39;</span><span class="p">:</span><span class="n">birth_places</span><span class="p">,</span> <span class="s1">&#39;Inauguration&#39;</span><span class="p">:</span><span class="n">inauguration_dates</span><span class="p">,</span>
+                             <span class="s1">&#39;End Date&#39;</span><span class="p">:</span><span class="n">end_dates</span><span class="p">,</span> <span class="s1">&#39;Education&#39;</span><span class="p">:</span><span class="n">educations</span><span class="p">,</span> <span class="s1">&#39;Religion&#39;</span><span class="p">:</span><span class="n">religions</span><span class="p">})</span>
+
+<span class="n">president_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Presidential Order</th>
+      <th>Name</th>
+      <th>Party</th>
+      <th>Birth Place</th>
+      <th>Inauguration</th>
+      <th>End Date</th>
+      <th>Education</th>
+      <th>Religion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>George Washington</td>
+      <td>Federalist</td>
+      <td>Pope’s Creek, Virginia</td>
+      <td>April 30, 1789</td>
+      <td>March 4, 1797</td>
+      <td>The equivalent of an elementary school education</td>
+      <td>Episcopalian</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>John Adams</td>
+      <td>Federalist</td>
+      <td>North Precinct of Braintree (now Quincy), Mass...</td>
+      <td>March 4, 1797</td>
+      <td>March 4, 1801</td>
+      <td>Harvard College (graduated 1755)</td>
+      <td>Unitarian</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Thomas Jefferson</td>
+      <td>Democratic-Republican</td>
+      <td>Shadwell plantation, Goochland County, Virginia</td>
+      <td>March 4, 1801</td>
+      <td>March 4, 1809</td>
+      <td>College of William and Mary (graduated 1762)</td>
+      <td>No formal affiliation</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>James Madison</td>
+      <td>Democratic-Republican</td>
+      <td>Port Conway, Virginia</td>
+      <td>March 4, 1809</td>
+      <td>March 4, 1817</td>
+      <td>College of New Jersey (now Princeton Universit...</td>
+      <td>Episcopalian</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>James Monroe</td>
+      <td>Democratic-Republican</td>
+      <td>Westmoreland County, Virginia</td>
+      <td>March 4, 1817</td>
+      <td>March 4, 1825</td>
+      <td>College of William and Mary (graduated 1776)</td>
+      <td>Episcopalian</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We can see our nice dataframe here using the president_df.head() method. We can see each president’s party, name, religion, among others! Webscraping this website has worked!</p>
+<p>However, now we want continuous variables to analyze. We choose the public website ‘britannica’ which has data on every presidential elections in history! This dataset includes the year, the winner, the electoral votes granted, the popular votes granted (when applicable) and the popular percentage won (when applicable). We begin our analysis by similarly requesting the html file and storing the parsed data in a variable called election_data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">elections_url</span> <span class="o">=</span> <span class="s1">&#39;https://www.britannica.com/topic/United-States-Presidential-Election-Results-1788863&#39;</span>
+<span class="n">elections_html</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">elections_url</span><span class="p">)</span><span class="o">.</span><span class="n">content</span>
+<span class="n">election_data</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">elections_html</span><span class="p">,</span><span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>I will not print out this election_data variable as it is quite large, but we will soon see that the request to access the html file had worked.</p>
+<p>We first need to separate each election and its data. We do this with another find_all function which looks for the heading “tr” and the class “has-rs”. We knew to use these parameters by looking at the html file for this website and seeing where each election was separated.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">elections</span> <span class="o">=</span> <span class="n">election_data</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;tr&#39;</span><span class="p">,</span> <span class="s1">&#39;has-rs&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">elections</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">elections</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tr class=&quot;has-rs&quot;&gt; &lt;td rowspan=&quot;13&quot;&gt;&lt;a class=&quot;md-crosslink&quot; data-show-preview=&quot;true&quot; href=&quot;https://www.britannica.com/event/United-States-presidential-election-of-1789&quot;&gt;1789&lt;/a&gt;&lt;/td&gt; &lt;td&gt;&lt;a class=&quot;md-crosslink&quot; data-show-preview=&quot;true&quot; href=&quot;https://www.britannica.com/biography/George-Washington&quot;&gt;George Washington&lt;/a&gt; &lt;sup&gt;4&lt;/sup&gt;&lt;/td&gt; &lt;td&gt;no formally organized parties&lt;/td&gt; &lt;td&gt;69 &lt;sup&gt;5&lt;/sup&gt;&lt;/td&gt; &lt;td&gt;&lt;/td&gt; &lt;td&gt;&lt;/td&gt; &lt;/tr&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see that each election is properly stored in a list by examining the first element which only has information on the 1789 ‘election’. We also use the len() function to see how many elections are within the list. Since this numnber is 59, which is accurate, we can move on to the next step.</p>
+<p>We then look for the string that has our election year. We can see that luckily it is the only string with our first “a” header of elections[0]. Using this knowledge, we can simply find our election year by adding the .a.string subtag.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">elections</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">string</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;1789&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>This worked. Given that information, we can try using the same method with for the other bits of information that we want to gather.</p>
+<p>We noticed that .a.string will clearly not work for each piece as there is a different address within the html file. The other bits of information are under the ‘td’ tag with a value in brackets like [1] succeeding the tag to specify which one. We can then use contents[0] to grab the portion that we want.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">years</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">electoral_votes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">popular_votes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">popular_percentage</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">election_cycle</span> <span class="ow">in</span> <span class="n">elections</span><span class="p">:</span>
+    <span class="n">years</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">election_cycle</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">string</span><span class="p">)</span>
+    <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">election_cycle</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;td&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">string</span><span class="p">)</span>
+    <span class="n">electoral_votes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">election_cycle</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;td&#39;</span><span class="p">)[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">popular_votes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">election_cycle</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;td&#39;</span><span class="p">)[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+        <span class="n">popular_percentage</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">election_cycle</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;td&#39;</span><span class="p">)[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">popular_votes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">NA</span><span class="p">)</span>
+        <span class="n">popular_percentage</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">NA</span><span class="p">)</span>
+
+<span class="n">names</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;George Washington&#39;,
+ &#39;George Washington&#39;,
+ &#39;John Adams&#39;,
+ &#39;Thomas Jefferson&#39;,
+ &#39;Thomas Jefferson&#39;,
+ &#39;James Madison&#39;,
+ &#39;James Madison&#39;,
+ &#39;James Monroe&#39;,
+ &#39;James Monroe&#39;,
+ &#39;John Quincy Adams&#39;,
+ &#39;Andrew Jackson&#39;,
+ &#39;Andrew Jackson&#39;,
+ &#39;Martin Van Buren&#39;,
+ &#39;William Henry Harrison&#39;,
+ &#39;James K. Polk&#39;,
+ &#39;Zachary Taylor&#39;,
+ &#39;Franklin Pierce&#39;,
+ &#39;James Buchanan&#39;,
+ &#39;Abraham Lincoln&#39;,
+ &#39;Abraham Lincoln&#39;,
+ &#39;Ulysses S. Grant&#39;,
+ &#39;Ulysses S. Grant&#39;,
+ &#39;Rutherford B. Hayes&#39;,
+ &#39;James A. Garfield&#39;,
+ &#39;Grover Cleveland&#39;,
+ &#39;Benjamin Harrison&#39;,
+ &#39;Grover Cleveland&#39;,
+ &#39;William McKinley&#39;,
+ &#39;William McKinley&#39;,
+ &#39;Theodore Roosevelt&#39;,
+ &#39;William Howard Taft&#39;,
+ &#39;Woodrow Wilson&#39;,
+ &#39;Woodrow Wilson&#39;,
+ &#39;Warren G. Harding&#39;,
+ &#39;Calvin Coolidge&#39;,
+ &#39;Herbert Hoover&#39;,
+ &#39;Franklin D. Roosevelt&#39;,
+ &#39;Franklin D. Roosevelt&#39;,
+ &#39;Franklin D. Roosevelt&#39;,
+ &#39;Franklin D. Roosevelt&#39;,
+ &#39;Harry S. Truman&#39;,
+ &#39;Dwight D. Eisenhower&#39;,
+ &#39;Dwight D. Eisenhower&#39;,
+ &#39;John F. Kennedy&#39;,
+ &#39;Lyndon B. Johnson&#39;,
+ &#39;Richard Nixon&#39;,
+ &#39;Richard Nixon&#39;,
+ &#39;Jimmy Carter&#39;,
+ &#39;Ronald Reagan&#39;,
+ &#39;Ronald Reagan&#39;,
+ &#39;George H.W. Bush&#39;,
+ &#39;Bill Clinton&#39;,
+ &#39;Bill Clinton&#39;,
+ &#39;George W. Bush&#39;,
+ &#39;George W. Bush&#39;,
+ &#39;Barack Obama&#39;,
+ &#39;Barack Obama&#39;,
+ &#39;Donald Trump&#39;,
+ &#39;Joe Biden&#39;,
+ &#39;Donald Trump&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see that this worked for all of them! The key difference other than the location is that both the popular votes and popular vote percentage is not always given for an elections (pre-JQA). This means that these variables need to be used under a try/except keyword that adds the given value and if not available, gives us NA.</p>
+<p>To visualize this information, we would like to once again convert the data into a dataframe. We do this using pandas’ DataFrame method which takes in a dictionary as its parameter. The dictionary contained the column name we would like as the first element and then the list as the second element once again. To make later calculations easier, we then delete commands that represent ‘thousands’ and then convert the electoral votes and popular votes to an integer and the popular percentage to a float.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">elections_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Years&#39;</span> <span class="p">:</span> <span class="n">years</span><span class="p">,</span><span class="s1">&#39;Name&#39;</span><span class="p">:</span><span class="n">names</span><span class="p">,</span><span class="s1">&#39;Electoral Votes&#39;</span><span class="p">:</span><span class="n">electoral_votes</span><span class="p">,</span>
+              <span class="s1">&#39;Popular Votes&#39;</span><span class="p">:</span><span class="n">popular_votes</span><span class="p">,</span> <span class="s1">&#39;Popular Percentage&#39;</span><span class="p">:</span><span class="n">popular_percentage</span><span class="p">})</span>
+
+<span class="n">elections_df</span><span class="p">[</span><span class="s1">&#39;Electoral Votes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">elections_df</span><span class="p">[</span><span class="s1">&#39;Electoral Votes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;Int64&#39;</span><span class="p">)</span>
+<span class="n">elections_df</span><span class="p">[</span><span class="s1">&#39;Popular Votes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">elections_df</span><span class="p">[</span><span class="s1">&#39;Popular Votes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;Int64&#39;</span><span class="p">)</span>
+<span class="n">elections_df</span><span class="p">[</span><span class="s1">&#39;Popular Percentage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">elections_df</span><span class="p">[</span><span class="s1">&#39;Popular Percentage&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;Float64&#39;</span><span class="p">)</span>
+
+<span class="n">elections_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Years</th>
+      <th>Name</th>
+      <th>Electoral Votes</th>
+      <th>Popular Votes</th>
+      <th>Popular Percentage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1789</td>
+      <td>George Washington</td>
+      <td>69</td>
+      <td>&lt;NA&gt;</td>
+      <td>&lt;NA&gt;</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1792</td>
+      <td>George Washington</td>
+      <td>132</td>
+      <td>&lt;NA&gt;</td>
+      <td>&lt;NA&gt;</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1796</td>
+      <td>John Adams</td>
+      <td>71</td>
+      <td>&lt;NA&gt;</td>
+      <td>&lt;NA&gt;</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1800</td>
+      <td>Thomas Jefferson</td>
+      <td>73</td>
+      <td>&lt;NA&gt;</td>
+      <td>&lt;NA&gt;</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1804</td>
+      <td>Thomas Jefferson</td>
+      <td>162</td>
+      <td>&lt;NA&gt;</td>
+      <td>&lt;NA&gt;</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>This is our resultant dataframe (note that the head contains NA values for popular votes and popular percentages. This is because the popualar vote was not recorded before John Quincy Adams.</p>
+<p>We then create a new dataframe called complete_pres_df which merges these two datasets (one from millercenter and the other from britannica). We merge them with a pandas function and use the on = ‘Name’ parameter so that for each election, we also provide the information for a given president. This could be cleaned up later to have minimal duplication, but it works for our purposes effectively.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complete_pres_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">elections_df</span><span class="p">,</span> <span class="n">president_df</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="s1">&#39;Name&#39;</span><span class="p">)</span>
+
+<span class="n">complete_pres_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Years</th>
+      <th>Name</th>
+      <th>Electoral Votes</th>
+      <th>Popular Votes</th>
+      <th>Popular Percentage</th>
+      <th>Presidential Order</th>
+      <th>Party</th>
+      <th>Birth Place</th>
+      <th>Inauguration</th>
+      <th>End Date</th>
+      <th>Education</th>
+      <th>Religion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1789</td>
+      <td>George Washington</td>
+      <td>69</td>
+      <td>&lt;NA&gt;</td>
+      <td>&lt;NA&gt;</td>
+      <td>1</td>
+      <td>Federalist</td>
+      <td>Pope’s Creek, Virginia</td>
+      <td>April 30, 1789</td>
+      <td>March 4, 1797</td>
+      <td>The equivalent of an elementary school education</td>
+      <td>Episcopalian</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1792</td>
+      <td>George Washington</td>
+      <td>132</td>
+      <td>&lt;NA&gt;</td>
+      <td>&lt;NA&gt;</td>
+      <td>1</td>
+      <td>Federalist</td>
+      <td>Pope’s Creek, Virginia</td>
+      <td>April 30, 1789</td>
+      <td>March 4, 1797</td>
+      <td>The equivalent of an elementary school education</td>
+      <td>Episcopalian</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1796</td>
+      <td>John Adams</td>
+      <td>71</td>
+      <td>&lt;NA&gt;</td>
+      <td>&lt;NA&gt;</td>
+      <td>2</td>
+      <td>Federalist</td>
+      <td>North Precinct of Braintree (now Quincy), Mass...</td>
+      <td>March 4, 1797</td>
+      <td>March 4, 1801</td>
+      <td>Harvard College (graduated 1755)</td>
+      <td>Unitarian</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1800</td>
+      <td>Thomas Jefferson</td>
+      <td>73</td>
+      <td>&lt;NA&gt;</td>
+      <td>&lt;NA&gt;</td>
+      <td>3</td>
+      <td>Democratic-Republican</td>
+      <td>Shadwell plantation, Goochland County, Virginia</td>
+      <td>March 4, 1801</td>
+      <td>March 4, 1809</td>
+      <td>College of William and Mary (graduated 1762)</td>
+      <td>No formal affiliation</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1804</td>
+      <td>Thomas Jefferson</td>
+      <td>162</td>
+      <td>&lt;NA&gt;</td>
+      <td>&lt;NA&gt;</td>
+      <td>3</td>
+      <td>Democratic-Republican</td>
+      <td>Shadwell plantation, Goochland County, Virginia</td>
+      <td>March 4, 1801</td>
+      <td>March 4, 1809</td>
+      <td>College of William and Mary (graduated 1762)</td>
+      <td>No formal affiliation</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We can see that this worked well for us and now we have the merged voting and president fact data!</p>
+<p>Now before we begin our exploratory analysis, there is one last piece of data I would like to gather. We have the total popular votes and the percent of the popular votes won. I would like to also obtain a percent of the electoral votes won so we can compare this later. To do so, I need the total electoral votes for each elections (as I already have how many electoral votes each candidate won). To obtain this, we are going to use the pandas method read_html()</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">electoral_votes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="s1">&#39;https://en.wikipedia.org/wiki/List_of_United_States_presidential_elections_by_Electoral_College_margin&#39;</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">23</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">electoral_votes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="s1">&#39;https://en.wikipedia.org/wiki/List_of_United_States_presidential_elections_by_Electoral_College_margin&#39;</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/site-packages/pandas/io/html.py:1212,</span> in <span class="ni">read_html</span><span class="nt">(io, match, flavor, header, index_col, skiprows, attrs, parse_dates, thousands, encoding, decimal, converters, na_values, keep_default_na, displayed_only, extract_links, dtype_backend)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1208</span> <span class="n">check_dtype_backend</span><span class="p">(</span><span class="n">dtype_backend</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1210</span> <span class="n">io</span> <span class="o">=</span> <span class="n">stringify_path</span><span class="p">(</span><span class="n">io</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1212</span> <span class="k">return</span> <span class="n">_parse</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1213</span>     <span class="n">flavor</span><span class="o">=</span><span class="n">flavor</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1214</span>     <span class="n">io</span><span class="o">=</span><span class="n">io</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1215</span>     <span class="n">match</span><span class="o">=</span><span class="n">match</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1216</span>     <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1217</span>     <span class="n">index_col</span><span class="o">=</span><span class="n">index_col</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1218</span>     <span class="n">skiprows</span><span class="o">=</span><span class="n">skiprows</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1219</span>     <span class="n">parse_dates</span><span class="o">=</span><span class="n">parse_dates</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1220</span>     <span class="n">thousands</span><span class="o">=</span><span class="n">thousands</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1221</span>     <span class="n">attrs</span><span class="o">=</span><span class="n">attrs</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1222</span>     <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1223</span>     <span class="n">decimal</span><span class="o">=</span><span class="n">decimal</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1224</span>     <span class="n">converters</span><span class="o">=</span><span class="n">converters</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1225</span>     <span class="n">na_values</span><span class="o">=</span><span class="n">na_values</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1226</span>     <span class="n">keep_default_na</span><span class="o">=</span><span class="n">keep_default_na</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1227</span>     <span class="n">displayed_only</span><span class="o">=</span><span class="n">displayed_only</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1228</span>     <span class="n">extract_links</span><span class="o">=</span><span class="n">extract_links</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1229</span>     <span class="n">dtype_backend</span><span class="o">=</span><span class="n">dtype_backend</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1230</span> <span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/site-packages/pandas/io/html.py:977,</span> in <span class="ni">_parse</span><span class="nt">(flavor, io, match, attrs, encoding, displayed_only, extract_links, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">975</span> <span class="n">retained</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="g g-Whitespace">    </span><span class="mi">976</span> <span class="k">for</span> <span class="n">flav</span> <span class="ow">in</span> <span class="n">flavor</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">977</span>     <span class="n">parser</span> <span class="o">=</span> <span class="n">_parser_dispatch</span><span class="p">(</span><span class="n">flav</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">978</span>     <span class="n">p</span> <span class="o">=</span> <span class="n">parser</span><span class="p">(</span><span class="n">io</span><span class="p">,</span> <span class="n">compiled_match</span><span class="p">,</span> <span class="n">attrs</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">displayed_only</span><span class="p">,</span> <span class="n">extract_links</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">980</span>     <span class="k">try</span><span class="p">:</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/site-packages/pandas/io/html.py:934,</span> in <span class="ni">_parser_dispatch</span><span class="nt">(flavor)</span>
+<span class="g g-Whitespace">    </span><span class="mi">932</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">933</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">_HAS_LXML</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">934</span>         <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;lxml not found, please install it&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">935</span> <span class="k">return</span> <span class="n">_valid_parsers</span><span class="p">[</span><span class="n">flavor</span><span class="p">]</span>
+
+<span class="ne">ImportError</span>: lxml not found, please install it
+</pre></div>
+</div>
+</div>
+</div>
+<p>This gives us a list of dataframes within the html file provided by the link, which is a wikipedia article.</p>
+<p>We will choose the dataframe provided by the index [2:]. We can then select the columns that we need and sort the values based on the ‘Year’ column to get our table in chronilogical order.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">election_total_df</span> <span class="o">=</span> <span class="n">electoral_votes</span><span class="p">[</span><span class="mi">2</span><span class="p">:][[</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="s1">&#39;Number of electors voting&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="s1">&#39;Year&#39;</span><span class="p">)</span>
+<span class="n">election_total_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is close to what we want, but it still needs some cleaning for us to use it.</p>
+<p>We can start by replacing the year at index 60, with 1789 (instead of the awkward range). We can then remove the [b] subtag for the number of electors voting at index 5. These are luckily the only two odd inputs that need to be manually changed. Asides from that, we need to reset the index of the dataframe so that everything is now in its proper order.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">election_total_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;Number of electors voting&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;138&#39;</span>
+<span class="n">election_total_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="s1">&#39;Year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1789</span>
+
+<span class="n">election_total_df</span> <span class="o">=</span> <span class="n">election_total_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">election_total_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This dataframe is still in need of cleaning, but given that the ‘Year’ column in this new dataframe is in matching order to our original dataframe, it works for what we need.</p>
+<p>So we will get the ‘Number of electors voting’ column, string strip the value, and convert into the ‘Int64’ type so we can perform future calculations. We add this column to our dataframe and then perform a calculation based on two columns to calculate our ‘Electoral Percentage’ that was won.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complete_pres_df</span><span class="p">[</span><span class="s1">&#39;Total Electors&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">election_total_df</span><span class="p">[</span><span class="s1">&#39;Number of electors voting&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;Int64&#39;</span><span class="p">)</span>
+<span class="n">complete_pres_df</span><span class="p">[</span><span class="s1">&#39;Electoral Percentage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">complete_pres_df</span><span class="p">[</span><span class="s1">&#39;Electoral Votes&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">complete_pres_df</span><span class="p">[</span><span class="s1">&#39;Total Electors&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="n">complete_pres_df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, we have one column based on our newest imported dataframe and then a second column that denotes the percent of electoral college votes won.</p>
+<p>Furthermore, we can do two new calculations that will be interesting for out study. The first is the percent difference between the popular percentage won and the electoral college percentage won. Essentially, this will demonstrate how much greater the electoral college was won than the popular vote. The second is a simple boolean based on whether the percent the popular vote was won is greater than 50%. This simply tells us if a president won the popular vote.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complete_pres_df</span><span class="p">[</span><span class="s1">&#39;Percent Difference from Popular Percentage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">complete_pres_df</span><span class="p">[</span><span class="s1">&#39;Electoral Percentage&#39;</span><span class="p">]</span> 
+                                                                     <span class="o">-</span> <span class="n">complete_pres_df</span><span class="p">[</span><span class="s1">&#39;Popular Percentage&#39;</span><span class="p">])</span> 
+                                                                        <span class="o">/</span> <span class="n">complete_pres_df</span><span class="p">[</span><span class="s1">&#39;Popular Percentage&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="n">complete_pres_df</span><span class="p">[</span><span class="s1">&#39;Win Popular?&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">complete_pres_df</span><span class="p">[</span><span class="s1">&#39;Popular Percentage&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">50</span>
+<span class="n">complete_pres_df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, these two columns were successfully added!</p>
+<p>We begin our exploratory data analysis by simply checking how many of our presidents (who all won the electoral college vote), also won the popular vote. This is done by doing a simple value_counts() of our ‘Win Popular?’ columns.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complete_pres_df</span><span class="p">[</span><span class="s1">&#39;Win Popular?&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>What we can see is that about half of our elected presidents won the popular vote, meaning that for only half of our presidents did a majority of citizens actually vote for that person. This provides some insight on how drastically different the popular votes and electoral votes for a president can be.</p>
+<p>Now I would like to explore the presidents further based on whether or not they won the popular vote. This may provide further insight on why this is the case. First, we will look at summary statistics for Percent of the Electoral College won, based on whether or not they won the popular vote.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complete_pres_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Win Popular?&#39;</span><span class="p">])[</span><span class="s1">&#39;Electoral Percentage&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see that the average percent of the electoral college won is about 75% for presidents that also won the popular vote. This average drops to just under 60% for presidents that lost the popular vote. This is a pretty significant difference, implying that the presidents that did not win the popular vote, usually only won the electoral college but a slight margin. However this is not always the case as the maximum electoral college percentage won for a president who did not win the popular vote is just over 80%, which is a significant majority.</p>
+<p>Now lets use the same categorical variable: whether or not the president won the popular vote. This time, however, we will look at summary statistics for the percent difference that the electoral college was won over the popular vote.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complete_pres_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Win Popular?&#39;</span><span class="p">])[</span><span class="s1">&#39;Percent Difference from Popular Percentage&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Using these summary statistics, we can see that for presidents that did not win the popular vote, they won the electoral college by a percentage about 21% on average higher than they did the popular vote. For the presidents that did win the popular vote, they won the electoral college by a percentage about 37% on average higher than they did the popular vote. These seem to be significant margins at first glance, but the standard deviation of each group implies that there is a lot of variation in this statistic. This is compared to the electoral percentage by itself, which has a much lesser range. This implies that that statistic holds greater pattern than the percent difference from popular percentage. However, the data suggests both times that the presidents who did not win the popular vote, usually only won the presidency narrowly (at least more narrowly than presidents who won the popular vote).</p>
+<p>Next we attempt to see if any other factors hold patterns on whether a president won the popular vote or not. We first look at religion, where we expect no significant results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complete_pres_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Religion&#39;</span><span class="p">])[</span><span class="s1">&#39;Win Popular?&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>It is interesting to point out that some patterns exist when examining religion’s effect on the popular vote. For instance, we can see that for the 14 Presbyterian presidents that we have had, a significant 10 of them did not win the popular vote, which is far from a 50-50 split. This is similar for Episcopalian and Methodists, where 5 presidents won the popular vote for each, but much less did not win the popular vote. Lastly, it is important to note Baptists, where four of them did not win the popular vote, and only one did. While this could be out of randomness, it would be interesting to do a separate analysis of these religions and these presidents to see if there are trends in the religion’s popularity, scandals, or the time period as a whole that explain this.</p>
+<p>What is expected to be more significant is the impact on a president’s political party on whether or not they won the popular vote. While expected to be more significant than religion as a factor, one would still expect not a drastic effect.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">party_v_popular</span> <span class="o">=</span> <span class="n">complete_pres_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Party&#39;</span><span class="p">])[</span><span class="s1">&#39;Win Popular?&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">party_v_popular</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>However, some interesting results do come from this analysis. While the data could be cleaned more to group certain sub-parties together, like “Democratic” and “Democrat”, the data does presdent an interesting result. For Democrats, there is about a 50-50 split on whether or not a president won the popular vote or not. Surprisingly, for the Republicans, while 11 of them won the popular vote, only 5 of them did not. While this is only a preliminary analysis, it is interesting to see this biasy. This could be due to the Republicans’ overall popularity post-Civil War, but it would be interesting to sort this data into 50-year buckets to examine these patterns.</p>
+<p>Next we are going to select only specific rows of the data and combine the Party and Win Popular? columns. This way we can easily graph these four primary scenarios to better visualize our results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">party_v_popular</span><span class="p">[</span><span class="s1">&#39;Party_Popular&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">party_v_popular</span><span class="p">[</span><span class="s1">&#39;Party&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">party_v_popular</span><span class="p">[</span><span class="s1">&#39;Win Popular?&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">party_v_popular</span> <span class="o">=</span> <span class="n">party_v_popular</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]]</span>
+<span class="n">party_v_popular</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>That worked. Just to practice data visualization, we will graph this is a barplot using seaborn.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">party_v_popular</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;Party_Popular&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;count&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Perfect! This is just a very basic plot, but it visualizes the conclusions we have already made while showing the significance in the ‘RepublicanFalse’ category.</p>
+<p>For our last exploratory data analysis, we will visualize the data from the religion conclusion as well, again using seaborn.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">religion_v_popular</span> <span class="o">=</span> <span class="n">complete_pres_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Religion&#39;</span><span class="p">])[</span><span class="s1">&#39;Win Popular?&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">religion_v_popular</span><span class="p">[</span><span class="s1">&#39;Party_Popular&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">religion_v_popular</span><span class="p">[</span><span class="s1">&#39;Religion&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">religion_v_popular</span><span class="p">[</span><span class="s1">&#39;Win Popular?&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">religion_v_popular</span> <span class="o">=</span> <span class="n">religion_v_popular</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">]]</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">religion_v_popular</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;Party_Popular&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;count&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>I had to look up how to tilt the x-axis labels using matplotlib, but this is visualization based on data we have already examined. This models religions effect on popular vote (for the main four religions that presidents have had). While interesting data, more data analysis could be performed to better examine this.</p>
+<p>This is enough data examination for this assignment. We have successfully loaded in data sets from three sources. The first was a webscraping of millercenter, which required us looping through sub-websites linked from the homepage of our website. The second was from webscraping a single britannica site. The third source was from wikipedia and was loaded through read_html(). This was done only to get the total electoral college votes for each election. We have examined interesting results comparing the popular vote and the electoral college vote for each election. We have also examined the potential impact that religion and political affiliation have had on this data. While this could be random results for those latter analyses, it would be interesting to expand this exploration to examine these topics! The final thing we will do is save our full dataset a a csv, called complete_presidential.csv</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complete_pres_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;complete_presidential.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="README.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Getting Started</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="a6_adults.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Accuracy for GPR income&gt;=20k</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Logan McCue
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

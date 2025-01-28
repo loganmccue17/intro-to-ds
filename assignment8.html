@@ -1,0 +1,665 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Evaluating Our Clusters &#8212; Intro to Data Science Portfolio</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'assignment8';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Dataset Imports and Cleaning" href="assignment9.html" />
+    <link rel="prev" title="7.2 – Dataset and EDA" href="Assignment7.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Intro to Data Science Portfolio</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="README.html">
+                    Getting Started
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="a5_us_presidential_elections.html">Are Presidential Popular Vote Wins Characterized by Political Party or Religion?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="a6_adults.html">Accuracy for GPR income&gt;=20k</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Assignment7.html">7.2 – Dataset and EDA</a></li>
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Evaluating Our Clusters</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="assignment9.html">Dataset Imports and Cleaning</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="assignment12.html">Classification of Fake News</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/assignment8.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Evaluating Our Clusters</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Evaluating Our Clusters</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization">Visualization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#silhouette-score">Silhouette Score</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adjusted-mutual-info-score">Adjusted Mutual Info Score</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#general-discussion">General Discussion</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#further-experimentation-with-different-cluster-sizes">Further Experimentation with Different Cluster Sizes</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lower-cluster-size-1">Lower Cluster Size – 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#higher-cluster-size-3">Higher Cluster Size – 3</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">datasets</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">metrics</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">palette</span><span class="o">=</span><span class="s1">&#39;colorblind&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">datasets</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">metrics</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;sklearn&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data&quot;</span>
+
+<span class="n">column_names</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;ID number&quot;</span><span class="p">,</span> <span class="s2">&quot;Diagnosis&quot;</span><span class="p">,</span> <span class="s2">&quot;Radius (mean)&quot;</span><span class="p">,</span> <span class="s2">&quot;Texture (mean)&quot;</span><span class="p">,</span> <span class="s2">&quot;Perimeter (mean)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Area (mean)&quot;</span><span class="p">,</span> <span class="s2">&quot;Smoothness (mean)&quot;</span><span class="p">,</span> <span class="s2">&quot;Compactness (mean)&quot;</span><span class="p">,</span> <span class="s2">&quot;Concavity (mean)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Concave points (mean)&quot;</span><span class="p">,</span> <span class="s2">&quot;Symmetry (mean)&quot;</span><span class="p">,</span> <span class="s2">&quot;Fractal dimension (mean)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Radius (SE)&quot;</span><span class="p">,</span> <span class="s2">&quot;Texture (SE)&quot;</span><span class="p">,</span> <span class="s2">&quot;Perimeter (SE)&quot;</span><span class="p">,</span> <span class="s2">&quot;Area (SE)&quot;</span><span class="p">,</span> <span class="s2">&quot;Smoothness (SE)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Compactness (SE)&quot;</span><span class="p">,</span> <span class="s2">&quot;Concavity (SE)&quot;</span><span class="p">,</span> <span class="s2">&quot;Concave points (SE)&quot;</span><span class="p">,</span> <span class="s2">&quot;Symmetry (SE)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Fractal dimension (SE)&quot;</span><span class="p">,</span> <span class="s2">&quot;Radius (worst)&quot;</span><span class="p">,</span> <span class="s2">&quot;Texture (worst)&quot;</span><span class="p">,</span> <span class="s2">&quot;Perimeter (worst)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Area (worst)&quot;</span><span class="p">,</span> <span class="s2">&quot;Smoothness (worst)&quot;</span><span class="p">,</span> <span class="s2">&quot;Compactness (worst)&quot;</span><span class="p">,</span> <span class="s2">&quot;Concavity (worst)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Concave points (worst)&quot;</span><span class="p">,</span> <span class="s2">&quot;Symmetry (worst)&quot;</span><span class="p">,</span> <span class="s2">&quot;Fractal dimension (worst)&quot;</span>
+<span class="p">]</span>
+
+<span class="n">cancer_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">column_names</span><span class="p">)</span>
+<span class="n">cancer_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is a dataset representing different case studies of breast cancer tumors. For each tumor, there is a designation on its activity (malignant ‘M’ and benign ‘B’). There are columns in this dataset that represent quantitative measurements on the various properties of cell nucleis within each sample cancer tumor (ie. Radius, Texture, and Perimeter). This results in three sets of datasets (mean, standard deviation, and worst). These ‘datasets’ describe overall analysis of all sample cancer nucleis within a sample tumor (given by the ID number).</p>
+<p>This dataset will be analyzed using the KMeans clustering algorithm. The use of this algorithm will aim to properly characterize the differences in malignant and benign cancer tumors by separating the datasets into two clusters. While direct classification will not be performed from this algorithm for each sample, the prospect of two separate clusters demonstrates a difference between the properties of each diagnosis. If this clustering algorithm does not separate the dataset into two distinct clusters, resulting in significant overlap, then there would be no clear difference between the nucleis of malignant and benign cancer cells. This would provide valuable albeit disappointing insight on the ability of machine learning to distinguish the two diagnoses.</p>
+<p>While the classification task using this dataset in Assignment 7 sought to test the ability of the Naive Bayes Gaussian algorithm to correctly identify diagnoses based on previous training data, the clustering KMeans algorithm uses the assumption that the diagnosis is not known. As there is an extra variable inhibiting out approach to correctly identify malignant or benign tumors, the clustering approach allows us to still distinguish commonalities between the two tumors. In scenarios when there can not be training data (as the result (‘y’) is not known), clustering the dataset into groups can be useful for later analysis and identification.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cancer_df</span> <span class="o">=</span> <span class="n">cancer_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">12</span><span class="p">]</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">cancer_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>By plotting each attribute against each other using a series of scatterplots, we see that there seem to be no concrete groups between the two types of cancer tumors. This comparison of attributes is how the KMeans clustering algorithm will examine our dataset. This is why it is interesting to see if a clustering algorithm can make two reasonable groups out of a dataset which seem to have none from the human eye alone.</p>
+<p>Here we prepare our input dataset for clustering, by getting rid of the target column ‘Diagnosis’. We also ensured above that our dataset only includes our mean data for separating into groups, so these groups are formed by similarities in the average measurement, with no influence on similarities of standard deviations or outlying ‘worst’ instances.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cancer_X</span> <span class="o">=</span> <span class="n">cancer_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">,</span> <span class="s1">&#39;ID number&#39;</span><span class="p">])</span>
+<span class="n">cancer_X</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here we define our KMeans function with a target of 2 clusters. This is because we know there are supposed to be 2 clusters in the dataset, so we force the algorithm to ‘find’ 2 distinct clusters the best it can.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">km2</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">17</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we fit and predict our dataset using the KMeans algorithm</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cancer_df</span><span class="p">[</span><span class="s1">&#39;km2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">km2</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">cancer_X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="evaluating-our-clusters">
+<h1>Evaluating Our Clusters<a class="headerlink" href="#evaluating-our-clusters" title="Permalink to this heading">#</a></h1>
+<section id="visualization">
+<h2>Visualization<a class="headerlink" href="#visualization" title="Permalink to this heading">#</a></h2>
+<p>We will first do an evaluation of our clusters by graphically comparing our cancer cell attributes using the same pairplot as shown previously. The above pairplot contained only one color, demonstrating that there was no information on the activity of the cell (malignant or benign). After predicting our clusters with an ‘n’ value of 2, we can re-create our pairplot. This visualization shows two given colors modeling our clusters. For some attributes, the clusters seem relatively separated, meaning there were some distinguishable properties between each activity type. However, each cluster in this case border each other with little space between them, visually demonstrating that even the separable properties were not entirely distinct. Conversely, some attribute comparisons show no separation between clusters, with a complete overlap of predicted malignant and benign differences. This agrees with our initial expectation that some nuclei properties would not contribute positively to cluster separation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cancer_df</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s1">&#39;km2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="silhouette-score">
+<h2>Silhouette Score<a class="headerlink" href="#silhouette-score" title="Permalink to this heading">#</a></h2>
+<p>We can also evaluate our clustering quantitatively using a metric like the silhouette score. This score models both how far apart the clusters are from each other and how spread out each point is within a cluster. A low value (0) demonstrates that the clusters are not distinguishable from each other while the higher value (1) demonstrates that clusters and entirely separated and distinct. For our two clusters (characterizing malignant and benign nuclei properties), we see that there is a relatively high silhouette score of approximately 0.699. While this is still not a great silhouette score, it is better than expected and shows that two reasonable clusters were able to be created.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">metrics</span><span class="o">.</span><span class="n">silhouette_score</span><span class="p">(</span><span class="n">cancer_X</span><span class="p">,</span><span class="n">cancer_df</span><span class="p">[</span><span class="s1">&#39;km2&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="adjusted-mutual-info-score">
+<h2>Adjusted Mutual Info Score<a class="headerlink" href="#adjusted-mutual-info-score" title="Permalink to this heading">#</a></h2>
+<p>This next evaluation compares our clusters with the ground truth labels (the actual diagnosis of malignant or benign). We use the adjusted mutual info score algorithm, which essentially uses a determined correlation between two categorical variables to test the effectiveness of our clusters. The two parameters we give are our y_true (Actual Diagnosis) and our y_pred (KMeans Determination). We can see that our Adjusted Mutual Info Score is approximately 0.419. This is not a very good clustering score, suggesting that while the KMeans algorithm gave us two clusters, there was little consistency in whether or not the given prediction would effectively classify our Dianosis. While there was general structure that could allow for clustering, there was only moderate differentiation between actual malignant or benign cancer cell nucleis. In comparison to Assignment 7, while the classification accuracy was fairly good given a training dataset, the ability for differentiation without one is less promising.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">metrics</span><span class="o">.</span><span class="n">adjusted_mutual_info_score</span><span class="p">(</span><span class="n">cancer_df</span><span class="p">[</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">],</span> <span class="n">cancer_df</span><span class="p">[</span><span class="s1">&#39;km2&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="general-discussion">
+<h1>General Discussion<a class="headerlink" href="#general-discussion" title="Permalink to this heading">#</a></h1>
+<p>As briefly discussed already, this clustering analysis has showed us that there was enough structure within the dataset to allow for separated clusters. While the clusters were visually adjoined in most attribute comparisons, they had a relatively good silhouette score. This initially suggested that the clustering was able to separate malignant and benign properties with a reasonable effectiveness. However, upon the examination of the adjusted mutual info score, comparing the clustering classifier with the actual diagnosis, it was shown that the clusters had only a moderate agreement with their identifier. This cluster evaluation means that while there was some structure within these clusters, there was only moderate success in differentiating actual malignant or benign cancer cells. As mentioned, the classification accuracy was relatively positive for a given training dataset in Assignment 7, while the ability for differentiation was less promising. Clustering performed worse than expected based on the high accuracy of classification, approximating at 95%. With this high of a classification success rate, it was expected that clustering would separate the two diagnoses well, which was not the case.</p>
+</section>
+<section id="further-experimentation-with-different-cluster-sizes">
+<h1>Further Experimentation with Different Cluster Sizes<a class="headerlink" href="#further-experimentation-with-different-cluster-sizes" title="Permalink to this heading">#</a></h1>
+<section id="lower-cluster-size-1">
+<h2>Lower Cluster Size – 1<a class="headerlink" href="#lower-cluster-size-1" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">km1</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">17</span><span class="p">)</span>
+<span class="n">cancer_df</span><span class="p">[</span><span class="s1">&#39;km1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">km1</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">cancer_X</span><span class="p">)</span>
+<span class="n">metrics</span><span class="o">.</span><span class="n">adjusted_mutual_info_score</span><span class="p">(</span><span class="n">cancer_df</span><span class="p">[</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">],</span> <span class="n">cancer_df</span><span class="p">[</span><span class="s1">&#39;km1&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>When we decrease the cluster size to 1, there is no meaningful correlation between the cluster and the diagnosis. This makes sense as nothing meaningful can come out of cluster size of 1. This would result in the data being a part of one distinct group, and therefore not able to be used to characterizing malignant versus benign cancer nuclei. This is cluster is therefore a conglomeration of the two previous clusters and is statistically useless in this analysis. When one clusters a dataset, they try to seek information that can distinguish the two groups without knowing what the specific attributes of a group may be. Finding similar patterns allows the user to find groups that may allow us to characterize each separately. When doing a cluster size of 1, this is not something that is possible and the point of the exercise is lost.</p>
+</section>
+<section id="higher-cluster-size-3">
+<h2>Higher Cluster Size – 3<a class="headerlink" href="#higher-cluster-size-3" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">km3</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">17</span><span class="p">)</span>
+<span class="n">cancer_df</span><span class="p">[</span><span class="s1">&#39;km3&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">km3</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">cancer_X</span><span class="p">)</span>
+<span class="n">metrics</span><span class="o">.</span><span class="n">adjusted_mutual_info_score</span><span class="p">(</span><span class="n">cancer_df</span><span class="p">[</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">],</span> <span class="n">cancer_df</span><span class="p">[</span><span class="s1">&#39;km3&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">metrics</span><span class="o">.</span><span class="n">silhouette_score</span><span class="p">(</span><span class="n">cancer_X</span><span class="p">,</span><span class="n">cancer_df</span><span class="p">[</span><span class="s1">&#39;km3&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cancer_df</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s1">&#39;km3&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>However, this becomes more interesting when we increase the cluster size to 3 (giving the algorithm another supposed option other than malignant or benign). What we see visually is that there is now a middle cluster that has been formed using data from both of the original 2 clusters. It is inserted the middle. We can see by doing this, the faults in the clustering algorithm. When an algorithm is forced to identify a certain amount of clusters, it will do so using the best patterns it can, often inventing new patterns to fit the request. This can be a problem in data science applications when the number of clusters is unknown. We see here that the silhouette score is actually higher than with only 2 clusters, suggesting that there was even better structure for the separation of 3 clusters. However, the adjusted mutual info score was lower, meaning that the despite the supporting structure, the information does not make much sense in a binary application such as this. This again enforces the worries in forcing more clusters than needed. While this can be a useful approach to distinguish sub-categories and properties within clusters, this application has no realistic purpose with this dataset.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Assignment7.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">7.2 – Dataset and EDA</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="assignment9.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Dataset Imports and Cleaning</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Evaluating Our Clusters</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization">Visualization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#silhouette-score">Silhouette Score</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adjusted-mutual-info-score">Adjusted Mutual Info Score</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#general-discussion">General Discussion</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#further-experimentation-with-different-cluster-sizes">Further Experimentation with Different Cluster Sizes</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lower-cluster-size-1">Lower Cluster Size – 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#higher-cluster-size-3">Higher Cluster Size – 3</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Logan McCue
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,743 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>7.2 – Dataset and EDA &#8212; Intro to Data Science Portfolio</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Assignment7';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Evaluating Our Clusters" href="assignment8.html" />
+    <link rel="prev" title="Accuracy for GPR income&gt;=20k" href="a6_adults.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Intro to Data Science Portfolio</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="README.html">
+                    Getting Started
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="a5_us_presidential_elections.html">Are Presidential Popular Vote Wins Characterized by Political Party or Religion?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="a6_adults.html">Accuracy for GPR income&gt;=20k</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">7.2 – Dataset and EDA</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="assignment8.html">Evaluating Our Clusters</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="assignment9.html">Dataset Imports and Cleaning</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="assignment12.html">Classification of Fake News</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Assignment7.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>7.2 – Dataset and EDA</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">7.2 – Dataset and EDA</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-classification">7.3 - Basic Classification</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-problem-setups">7.4 - Exploring Problem Setups</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">tree</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">skmetrics</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">palette</span><span class="o">=</span><span class="s1">&#39;colorblind&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">tree</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;sklearn&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data&quot;</span>
+
+<span class="n">column_names</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;ID number&quot;</span><span class="p">,</span> <span class="s2">&quot;Diagnosis&quot;</span><span class="p">,</span> <span class="s2">&quot;Radius (mean)&quot;</span><span class="p">,</span> <span class="s2">&quot;Texture (mean)&quot;</span><span class="p">,</span> <span class="s2">&quot;Perimeter (mean)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Area (mean)&quot;</span><span class="p">,</span> <span class="s2">&quot;Smoothness (mean)&quot;</span><span class="p">,</span> <span class="s2">&quot;Compactness (mean)&quot;</span><span class="p">,</span> <span class="s2">&quot;Concavity (mean)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Concave points (mean)&quot;</span><span class="p">,</span> <span class="s2">&quot;Symmetry (mean)&quot;</span><span class="p">,</span> <span class="s2">&quot;Fractal dimension (mean)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Radius (SE)&quot;</span><span class="p">,</span> <span class="s2">&quot;Texture (SE)&quot;</span><span class="p">,</span> <span class="s2">&quot;Perimeter (SE)&quot;</span><span class="p">,</span> <span class="s2">&quot;Area (SE)&quot;</span><span class="p">,</span> <span class="s2">&quot;Smoothness (SE)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Compactness (SE)&quot;</span><span class="p">,</span> <span class="s2">&quot;Concavity (SE)&quot;</span><span class="p">,</span> <span class="s2">&quot;Concave points (SE)&quot;</span><span class="p">,</span> <span class="s2">&quot;Symmetry (SE)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Fractal dimension (SE)&quot;</span><span class="p">,</span> <span class="s2">&quot;Radius (worst)&quot;</span><span class="p">,</span> <span class="s2">&quot;Texture (worst)&quot;</span><span class="p">,</span> <span class="s2">&quot;Perimeter (worst)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Area (worst)&quot;</span><span class="p">,</span> <span class="s2">&quot;Smoothness (worst)&quot;</span><span class="p">,</span> <span class="s2">&quot;Compactness (worst)&quot;</span><span class="p">,</span> <span class="s2">&quot;Concavity (worst)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Concave points (worst)&quot;</span><span class="p">,</span> <span class="s2">&quot;Symmetry (worst)&quot;</span><span class="p">,</span> <span class="s2">&quot;Fractal dimension (worst)&quot;</span>
+<span class="p">]</span>
+
+<span class="n">cancer_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">column_names</span><span class="p">)</span>
+<span class="n">cancer_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="dataset-and-eda">
+<h1>7.2 – Dataset and EDA<a class="headerlink" href="#dataset-and-eda" title="Permalink to this heading">#</a></h1>
+<p>This dataset includes a specific ID number for each test case and a diagnosis given (malignant or benign). This diagnosis can be used to compare each model’s prediction using the Gaussian Naive Bayes method. Every column after that includes data based on features of the cancer tumor used for machine learning classification.</p>
+<p>The purpose of this classification would be to test the Gaussian Naive Bayes algorithm in its use to correctly diagnose the activity of each breast cancer tumor. Using various features of each test case, the algorithm should be able to find patterns separating the malignant and benign cancer tumors.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cancer_df</span><span class="p">[[</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">,</span> <span class="s1">&#39;Radius (mean)&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cancer_df</span><span class="p">[[</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">,</span> <span class="s1">&#39;Texture (mean)&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cancer_df</span><span class="p">[[</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">,</span> <span class="s1">&#39;Perimeter (mean)&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>When doing some brief Exploratory Data Analysis looking at the Radius, Texture, and Perimeter columns, we see that the means and standard deviations for some columns are out of range. The Radius and Perimeter have standard deviations that are statistically different when comparing benign and malignant cancer tumors. However, other columns like Texture contain overlapping error bars. This likely means that some breast cancer tumors are more characteristic for a benign or malignant diagnosis than others. Due to the statistical separation of some variables, I would hypothesize that the classification algorithm will result in reasonably high accuracy, but may be lowered by the presence of less characteristic variables. Due to this, there are likely to be a significant amount of false positives or false negatives which would lower the amount of true diagnoses needed for 100% accuracy. The accuracy, I expect would still be within a passing range despite this nonetheless (perhaps an estimate of 70% or so).</p>
+<p>While I believe both the Gaussian Naive Bayes and Decision Tree models would be reasonably effective in our classification analysis, I would have reason to expect that the Gaussian Naive Bayes model would perform better. This is because the Gaussian Naive Bayes algorithm assumes that the data has a Gaussian distribution. While I am unsure that the data had this distribution, it is reasonable to assume that most large datasets with a plethora of continuous attributes would hold a Gaussian shape. While the Decision Tree would likely still be effective, it follows a flowchart-like pattern where it looks at each attribute one by one. Since some attributes seem to characterize breast cancer tumors with more statistical significance than others, it is reasonable to assume that Decision Tree may have trouble at these roadblocks. Since the Gaussian Naive Bayes algorithm is on the basis of a Gaussian distribution, which most large continuous datasets have, it is likely to be more effective for our purposes.</p>
+</section>
+<section id="basic-classification">
+<h1>7.3 - Basic Classification<a class="headerlink" href="#basic-classification" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">feature_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Radius (mean)&#39;</span><span class="p">,</span> <span class="s1">&#39;Texture (mean)&#39;</span><span class="p">,</span> <span class="s1">&#39;Perimeter (mean)&#39;</span><span class="p">,</span> <span class="s1">&#39;Area (mean)&#39;</span><span class="p">,</span> <span class="s1">&#39;Smoothness (mean)&#39;</span><span class="p">,</span> <span class="s1">&#39;Compactness (mean)&#39;</span><span class="p">,</span> <span class="s1">&#39;Concavity (mean)&#39;</span><span class="p">,</span> <span class="s1">&#39;Concave points (mean)&#39;</span><span class="p">,</span> <span class="s1">&#39;Symmetry (mean)&#39;</span><span class="p">,</span> <span class="s1">&#39;Fractal dimension (mean)&#39;</span><span class="p">]</span>
+<span class="n">target_var</span> <span class="o">=</span> <span class="s1">&#39;Diagnosis&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here we split our data into X and y, where X represents only our feature variables and y represents our target variable (Diagnosis). We split each X and y further into training data and testing data so that a random 80% of our cancer_data is placed into training and the remaining 20% into testing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">cancer_df</span><span class="p">[</span><span class="n">feature_vars</span><span class="p">],</span>
+                                                    <span class="n">cancer_df</span><span class="p">[</span><span class="n">target_var</span><span class="p">],</span>
+                                                    <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span>
+                                                    <span class="n">random_state</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we see, the train_test_split() function successfully separated out dataset into a training dataset (80%) and a testing dataset (20%)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see that our training data successfully contains all of our characterizing attributes for our cancer tumors.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_test</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see that our testing data also included only our characterizing attributes for our cancer tumors. This data is 20% of our original dataframe and will be used to test the accuracy of the Gaussian Naive Bayes algorithm.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gnb</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gnb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gnb</span><span class="o">.</span><span class="vm">__dict__</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This fitted Gaussian Naive Bayes dictionary now contains many elements. The array labeled as ‘theta_’ contains the mean for each feature (Radius, Texture, Perimeter, etc.). The array labeled as ‘var_’ contains the standard deviation for each of these theta values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gnb</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span><span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">n_features</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">feature_vars</span><span class="p">)</span>
+<span class="n">gnb_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">th</span><span class="p">,</span> <span class="n">sig</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n_features</span><span class="p">),</span><span class="n">N</span><span class="p">)</span>
+                 <span class="k">for</span> <span class="n">th</span><span class="p">,</span> <span class="n">sig</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">gnb</span><span class="o">.</span><span class="n">theta_</span><span class="p">,</span><span class="n">gnb</span><span class="o">.</span><span class="n">var_</span><span class="p">)]),</span>
+                 <span class="n">columns</span> <span class="o">=</span> <span class="n">gnb</span><span class="o">.</span><span class="n">feature_names_in_</span><span class="p">)</span>
+<span class="n">gnb_df</span><span class="p">[</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ci</span> <span class="k">for</span> <span class="n">cl</span> <span class="ow">in</span> <span class="p">[[</span><span class="n">c</span><span class="p">]</span><span class="o">*</span><span class="n">N</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">gnb</span><span class="o">.</span><span class="n">classes_</span><span class="p">]</span> <span class="k">for</span> <span class="n">ci</span> <span class="ow">in</span> <span class="n">cl</span><span class="p">]</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span><span class="n">gnb_df</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This model does seem to make sense as it is in alignment with my prediction. I assumed that some features like Radius and Perimeter of the cancer tumor would characterize malignant and benign classification better than other features. This is demonstrated by Gaussian curves based on the <strong>dict</strong> parameter than do not overlap too significantly (though there still is an overlap). However, for some parameters like Texture and Fractal Dimension, there is an almost complete overlap. This demonstrates that some features are better for classification than others, suggesting that Gaussian Naive Bayes was a more effective choice when compared to the Decision Tree model.</p>
+<p>This suggests that the training data from the Gaussian Naive Bayes model does fit the data well. As there is almost a perfect match between our hypothesis and the synthetic data created by our gnb <strong>dict</strong>, this training data seems to resemble our original dataframe well. This means we can now use this training data to test our model and generate a classification report.</p>
+<p>We first generate our predicted dataset using our X_test</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">gnb</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Using out y_test and our y_pred, we can generate a confusion matrix where the indicies start from top-left to bottom-right as: <br> TN, FP <br> FN, TP</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">skmetrics</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">y_pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We then can organize this into a readable dataframe where each axis represents the predicted or true class (benign or malignant)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_classes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">gnb</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
+<span class="n">prediction_labels</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;predicted class&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">n_classes</span><span class="p">,</span> <span class="n">gnb</span><span class="o">.</span><span class="n">classes_</span><span class="p">]</span>
+<span class="n">actual_labels</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;true class&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">n_classes</span><span class="p">,</span> <span class="n">gnb</span><span class="o">.</span><span class="n">classes_</span><span class="p">]</span>
+<span class="n">conf_mat</span> <span class="o">=</span> <span class="n">skmetrics</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">y_pred</span><span class="p">)</span>
+<span class="n">conf_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">conf_mat</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">actual_labels</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">prediction_labels</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">conf_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, we can generate a classification report, giving us useful information such as precision and recall</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">skmetrics</span><span class="o">.</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">y_pred</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>After looking at final classification report of this model, I would recommend this model for deployment. While the model is not perfect, especially in specific features, there is an overall success with this model. For benign cancer tumors, the precision and recall of this model is 96%, meaning that the model correctly predicted benign tumors with significant agreement. While both precision and recall drop to 92% for malignant breast cancer tumors, this is still a very good statistical probability, further supporting the model’s success. In the same range, there was a significant overall accuracy of 95% for the model’s predictions. Based on these classification statistics, I would trust this model in deployment in the medical field.</p>
+<p>While a more complex model may deal with the overlapping Gaussian features better than this one, I would still support the use of this model for breast cancer tumor classification. With good precision, recall, and accuracy statistics, there is little reason to suggest that this model would not be effective in deployment. However, as the medical field is very precise, it would not hurt to use a more complex model if available. This evaluation has demonstrated that machine learning models like the Gaussian Naive Bayes would be effective at performing tasks like these. While this task is able to be done without the use of a machine learning model, by ultrasound sonographers for instance, the success of this evaluation would eagerly encourage more research with similar models and test cases in order to allow the widespread use of machine learning breast cancer tumor classification.</p>
+</section>
+<section id="exploring-problem-setups">
+<h1>7.4 - Exploring Problem Setups<a class="headerlink" href="#exploring-problem-setups" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">percentages</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">]</span>
+<span class="n">train_percentages</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">n_train_samples</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">n_test_samples</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">train_accuracies</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">test_accuracies</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">train_prct</span> <span class="ow">in</span> <span class="n">percentages</span><span class="p">:</span>
+    <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">cancer_df</span><span class="p">[</span><span class="n">feature_vars</span><span class="p">],</span>
+                                                        <span class="n">cancer_df</span><span class="p">[</span><span class="n">target_var</span><span class="p">],</span>
+                                                        <span class="n">train_size</span> <span class="o">=</span> <span class="n">train_prct</span><span class="p">,</span>
+                                                        <span class="n">random_state</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+    
+    <span class="n">n_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">n_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">y_train_pred</span> <span class="o">=</span> <span class="n">gnb</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+    <span class="n">train_acc</span> <span class="o">=</span> <span class="n">skmetrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred</span><span class="p">)</span>
+
+    <span class="n">y_test_pred</span> <span class="o">=</span> <span class="n">gnb</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="n">test_acc</span> <span class="o">=</span> <span class="n">skmetrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_test_pred</span><span class="p">)</span>
+
+    <span class="n">train_percentages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">train_prct</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">n_train_samples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n_train</span><span class="p">)</span>
+    <span class="n">n_test_samples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n_test</span><span class="p">)</span>
+    <span class="n">train_accuracies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">train_acc</span><span class="p">)</span>
+    <span class="n">test_accuracies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">test_acc</span><span class="p">)</span>
+
+<span class="n">test_size_v_acc_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;train_pct&#39;</span><span class="p">:</span> <span class="n">train_percentages</span><span class="p">,</span>
+    <span class="s1">&#39;n_train_samples&#39;</span><span class="p">:</span> <span class="n">n_train_samples</span><span class="p">,</span>
+    <span class="s1">&#39;n_test_samples&#39;</span><span class="p">:</span> <span class="n">n_test_samples</span><span class="p">,</span>
+    <span class="s1">&#39;train_acc&#39;</span><span class="p">:</span> <span class="n">train_accuracies</span><span class="p">,</span>
+    <span class="s1">&#39;test_acc&#39;</span><span class="p">:</span> <span class="n">test_accuracies</span> <span class="p">})</span>
+    
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_size_v_acc_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This dataframe shows how the accuracy in the training and test data changes as the training percentage increases. The training percentage models how much of the original dataframe is used to train the machine learning model while the test percentage is the remainder. We can observe that as the training percentage increases, the accuracy of the training model to classify benign versus malignant breast cancer tumors stays relatively stagnant. There seems to be no impact on the number of training samples on the training accuracy. This could be because the training accuracy is independent from the model itself. As the trained model is used for classification of test cases, we would expect that the testing accuracy increases increased as the training percentage increases. This is because more training samples results in more data to base testing classification on. This prediction is demonstrated by a consistently increasing test accuracy from ~92 - ~96%. While this data seems to support our hypothesis, it is worth noting that this would be more thoroughly examined using different random seeds, to see if this trend is consistent for different training and testing arrangements of the same percentage.</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="a6_adults.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Accuracy for GPR income&gt;=20k</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="assignment8.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Evaluating Our Clusters</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">7.2 – Dataset and EDA</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-classification">7.3 - Basic Classification</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-problem-setups">7.4 - Exploring Problem Setups</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Logan McCue
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>&lt;no title&gt; &#8212; Intro to Data Science Portfolio</title>
+    <title>Decision Tree vs. GNB &#8212; Intro to Data Science Portfolio</title>
   
   
   
@@ -163,13 +163,14 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="a5_us_presidential_elections.html">Web-Scraping Presidential Information</a></li>
 <li class="toctree-l1"><a class="reference internal" href="a6_adults.html">Accuracy, Precision, and Recall</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Assignment7.html">Basic Classification</a></li>
 <li class="toctree-l1"><a class="reference internal" href="assignment8.html">Basic Clustering</a></li>
 <li class="toctree-l1"><a class="reference internal" href="assignment9.html">Basic Linear Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="a10_decision_tree.html">Decision Tree Classification</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Decision Tree vs. GNB</a></li>
 <li class="toctree-l1"><a class="reference internal" href="assignment12.html">Text Vectorization</a></li>
 </ul>
 
@@ -296,9 +297,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -309,19 +308,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1><no title></h1>
+    <h1>Decision Tree vs. GNB</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="simple visible nav section-nav flex-column">
-</ul>
-
-            </nav>
         </div>
     </div>
 </div>
@@ -331,7 +322,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+  <section class="tex2jax_ignore mathjax_ignore" id="decision-tree-vs-gnb">
+<h1>Decision Tree vs. GNB<a class="headerlink" href="#decision-tree-vs-gnb" title="Permalink to this heading">#</a></h1>
+<p>A comparison of the Decision Tree Classifier and Gaussian Naive Bayes models in classifying red wine quality.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">tree</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">skops.io</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sio</span>
@@ -1320,6 +1314,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1375,20 +1370,6 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="simple visible nav section-nav flex-column">
-</ul>
-
-  </nav></div>
-
-</div></div>
               
             
           </div>
